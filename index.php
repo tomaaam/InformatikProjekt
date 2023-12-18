@@ -17,7 +17,7 @@
   <button onclick=generateTestscore()>Highscore generieren</button>
 
   <?php
-    require('submitusername.php');
+    require('submitS1.php');
     require('connector.php'); 
 
     if(isset($_POST['submit'])) {
