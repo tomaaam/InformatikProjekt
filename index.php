@@ -7,6 +7,7 @@
       function generateTestscore() {
         var score = Math.floor(Math.random() * 10000);
         document.getElementById("highscore").innerHTML = score;
+        document.getElementById("hiddenScore").value = score;
       }
     </script>
 </head>
@@ -44,6 +45,7 @@
   <form action="index.php" method="POST">
     <label>Nutzernamen eingeben:</label>
     <input type="text" name="username" /> <br />
+    <input type="hidden" name="score" id="hiddenScore" />
     <input type="submit" name="submit" value="Bestätigen" />
     <input type="submit" name="auslesen" value="Tabelle anzeigen" />
   </form>
