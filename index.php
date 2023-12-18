@@ -49,30 +49,6 @@
     <input type="submit" name="submit" value="Bestätigen" />
     <input type="submit" name="auslesen" value="Tabelle anzeigen" />
   </form>
-
-  <!--
-
-  <div id = "button">
-    <button type="button" onclick = "writeName()">Namen ändern</button>
-    <button type="button" onclick = "writeScore()">Score ändern</button>
-  </div>
-
-  
-    <script>
-    function writeName() {
-      console.log("S1_name.txt file has been successfully updated")
-      const xhttp = new XMLHttpRequest();
-      xhttp.open("GET", "phpsheetUSERNAME.php", true);
-      xhttp.send();
-    }
     
-    function writeScore() {
-      console.log("S1_score.txt file has been successfully updated")
-      const xhttp = new XMLHttpRequest();
-      xhttp.open("GET", "phpsheetSCORE.php", true);
-      xhttp.send();
-    }
-  </script>
-  -->
 </body>
 </html>
