@@ -1,10 +1,10 @@
 # Version2
 
-S1: BlockJumpingGame
-S2: Snake
-S3: SuperTikTakToe
-S4: 2048 
-S5: Tetris
+- S1: BlockJumpingGame
+- S2: Snake
+- S3: SuperTikTakToe
+- S4: 2048 
+- S5: Tetris
 
 
 
