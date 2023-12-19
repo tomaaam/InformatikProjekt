@@ -1,4 +1,13 @@
 # Version2
+
+S1: BlockJumpingGame
+S2: Snake
+S3: SuperTikTakToe
+S4: 2048
+S5: Tetris
+
+
+
 Programmierprojekt Informatik
 
 1) Sinatra-Script on Ruby installieren und kennenlernen => 22.11. (https://rubydoc.info/gems/sinatra)
