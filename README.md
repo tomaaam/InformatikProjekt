@@ -34,7 +34,6 @@ Programmierprojekt Informatik
 
 4) Implementation in HTML der anderen Gruppen	    => 19.12. (PENDING)
    - Erstellung der Tables für die Spiele
-   - 
 
 5) Absprechung und Anpassung an die anderen Gruppen (OPEN)
 
