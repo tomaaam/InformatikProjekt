@@ -37,7 +37,6 @@ Programmierprojekt Informatik
    - E-Mail auf IServ oder GitHub-Repository (Gruppen müssen nur S1 durch ihre Nummer ersetzen (siehe oben) + ORDER BY SCORE DESC in runSQL einfügen)
 
 5) Absprechung und Anpassung an die anderen Gruppen (OPEN)
-   - 
 
 Links:
 - https://entwickler.de/php/php-tutorial-datenbankprogrammierung-mit-php-und-mysql
