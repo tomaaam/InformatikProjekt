@@ -32,10 +32,12 @@ Programmierprojekt Informatik
    - Spalten: ID (INT), USERNAME (VARCHAR, 20), SCORE (INT), DATE (DATE)
    - ID (INT, AUTO_INCREMENT), USERNAME (VARCHAR, 20, DEFAULT=Anonym), SCORE (INT), DATE (datetime, current_timestamp())
 
-4) Implementation in HTML der anderen Gruppen	    => 19.12. (PENDING)
+4) Implementation in HTML der anderen Gruppen 			=> DONE
    - Erstellung der Tables für die Spiele
+   - E-Mail auf IServ oder GitHub-Repository (Gruppen müssen nur S1 durch ihre Nummer ersetzen (siehe oben) + ORDER BY SCORE DESC in runSQL einfügen)
 
 5) Absprechung und Anpassung an die anderen Gruppen (OPEN)
+   - 
 
 Links:
 - https://entwickler.de/php/php-tutorial-datenbankprogrammierung-mit-php-und-mysql
