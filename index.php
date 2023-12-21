@@ -28,7 +28,7 @@
       
     if (isset($_POST['auslesen'])) {
         
-      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM S1");
+      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM S1 ORDER BY SCORE DESC");
       
       echo('<table>');
       while($row = mysqli_fetch_array($db_res)) {
