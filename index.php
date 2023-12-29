@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Testumgebung</title>
     <script>
-      function generateTestscore() {
+      function generateTestscore() { //Generierung eines beispielhaften Highscores, ersetzt eure Definition eines "echten" Highscores zu Testzwecken
         var score = Math.floor(Math.random() * 10000);
         document.getElementById("highscore").innerHTML = score;
-        document.getElementById("hiddenScore").value = score;
+        document.getElementById("hiddenScore").value = score; //Der Highscore wird in das "versteckte" Objekt geschrieben  
       }
     </script>
 </head>
@@ -17,20 +17,20 @@
   <button onclick=generateTestscore()>Highscore generieren</button>
 
   <?php
-    require('submitS1.php');
-    require('connector.php'); 
+    require('submitS1.php'); //HIER MUSS "S1" durch euren Teil ersetzt werden! (siehe "README.md")
+    require('connector.php'); //Hier muss nichts geändert werden
 
-    if(isset($_POST['submit'])) {
+    if(isset($_POST['submit'])) { 
 
-      register($_POST['username'], $_POST['score']);
+      register($_POST['username'], $_POST['score']); //Sendung von Daten an die Datenbank über die jeweilige "submitS[].php"-Datei
 
     }
       
     if (isset($_POST['auslesen'])) {
         
-      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM S1 ORDER BY SCORE DESC");
+      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM S1 ORDER BY SCORE DESC"); //Empfanh von Daten aus der Datenbank
       
-      echo('<table>');
+      echo('<table>'); //Ausgabe der Daten als unformatierte Tabelle
       while($row = mysqli_fetch_array($db_res)) {
         echo('<tr>');
         echo('<td>' . $row['USERNAME'] . '</td>');
