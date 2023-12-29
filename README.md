@@ -1,5 +1,3 @@
-# Version2
-
 - S1: BlockJumpingGame
 - S2: Snake
 - S3: SuperTikTakToe
