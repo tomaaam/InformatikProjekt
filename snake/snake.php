@@ -60,7 +60,7 @@
       
     if (isset($_POST['auslesen'])) {
         
-      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM S2");
+      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM S2 SORT BY SCORE DESC");
       
       echo('<table>');
       while($row = mysqli_fetch_array($db_res)) {
