@@ -28,7 +28,7 @@
       
     if (isset($_POST['auslesen'])) {
         
-      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM S1 ORDER BY SCORE DESC"); //Empfanh von Daten aus der Datenbank
+      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM S1 ORDER BY SCORE DESC"); //Empfang von Daten aus der Datenbank
       
       echo('<table>'); //Ausgabe der Daten als unformatierte Tabelle
       while($row = mysqli_fetch_array($db_res)) {
@@ -44,10 +44,10 @@
 
   <form action="index.php" method="POST">
     <label>Nutzernamen eingeben:</label>
-    <input type="text" name="username" /> <br />
-    <input type="hidden" name="score" id="hiddenScore" />
-    <input type="submit" name="submit" value="Bestätigen" />
-    <input type="submit" name="auslesen" value="Tabelle anzeigen" />
+    <input type="text" name="username" /> <br /> <!-- Eingabe des Usernamens -->
+    <input type="hidden" name="score" id="hiddenScore" /> <!-- Hier wird der Highscore hereingeschrieben, damit die "register"-Funktion auf auf ihn zugreifen kann -->
+    <input type="submit" name="submit" value="Bestätigen" /> 
+    <input type="submit" name="auslesen" value="Tabelle anzeigen" /> 
   </form>
     
 </body>
