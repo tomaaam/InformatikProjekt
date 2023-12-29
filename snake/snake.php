@@ -323,6 +323,8 @@
                 canvas.style.display = "block";
                 document.getElementById("tomjonathanform").style.display = "none";
                 document.getElementById("scoreanzeige").style.display = "block";
+                dx = 10;
+                dy = 0;
                 main();
             });
         });
