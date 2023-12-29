@@ -50,7 +50,7 @@
 <body style="font-family: 'Segoe UI', Arial, sans-serif;" >
     <?php
     require('submitS2.php');
-    require('../connector.php');
+    require('connector.php'); 
 
     if(isset($_POST['submit'])) {
 
