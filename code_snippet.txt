@@ -1,0 +1,33 @@
+<?php
+    require('submitS1.php');
+    require('connector.php'); 
+
+    if(isset($_POST['submit'])) {
+
+      register($_POST['username'], $_POST['score']);
+
+    }
+      
+    if (isset($_POST['auslesen'])) {
+        
+      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM S1 ORDER BY SCORE DESC");
+      
+      echo('<table>');
+      while($row = mysqli_fetch_array($db_res)) {
+        echo('<tr>');
+        echo('<td>' . $row['USERNAME'] . '</td>');
+        echo('<td>' . $row['SCORE'] . '</td>');
+        echo('<td>' . $row['DATE'] . '</td>');
+        echo('</tr>');
+      }
+      echo('</table>');
+    }
+  ?>
+
+  <form action="index.php" method="POST">
+    <label>Nutzernamen eingeben:</label>
+    <input type="text" name="username" /> <br />
+    <input type="hidden" name="score" id="hiddenScore" />
+    <input type="submit" name="submit" value="Bestätigen" />
+    <input type="submit" name="auslesen" value="Tabelle anzeigen" />
+  </form>
