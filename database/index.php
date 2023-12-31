@@ -56,7 +56,7 @@
         $count = intval($row['count']);
 
         if ($count > 0) {
-          $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM S1 WHERE USERNAME = '$search';");
+          $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM S1 WHERE USERNAME = '$search' ORDER BY SCORE DESC;");
 
           echo('<table>');
           while($row = mysqli_fetch_array($db_res)) {
