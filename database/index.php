@@ -22,13 +22,10 @@
     require('connector.php'); 
 
     if(isset($_POST['submit'])) {
-
       register($_POST['username'], $_POST['score']);
-
     }
       
     if (isset($_POST['auslesen'])) {
-        
       $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s1 ORDER BY SCORE DESC");
       
       echo('<table>');
@@ -43,7 +40,6 @@
     }
 
     if (isset($_POST['lookup'])) {
-
       $search = isset($_POST['search']) ? $_POST['search'] : '';
 
       global $db_link;
