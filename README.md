@@ -14,3 +14,4 @@ Falls ihr euren Code hier hochladen wollt, gerne anschreiben.
 - S3: SuperTikTakToe
 - S4: 2048 
 - S5: Tetris
+- S6: Hellmuth
