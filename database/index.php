@@ -29,12 +29,13 @@
       $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s1 ORDER BY SCORE DESC");
       
       echo('<table>');
-      while($row = mysqli_fetch_array($db_res)) {
+      while($row = mysqli_fetch_array($db_res) AND $i<=10) {
         echo('<tr>');
         echo('<td>' . $row['USERNAME'] . '</td>');
         echo('<td>' . $row['SCORE'] . '</td>');
         echo('<td>' . $row['DATE'] . '</td>');
         echo('</tr>');
+        $i++;
       }
       echo('</table>');
     }
