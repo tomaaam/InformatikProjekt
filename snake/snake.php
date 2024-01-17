@@ -278,6 +278,7 @@
             document.getElementById("start").style.display = "none";
             document.getElementById("scoreanzeige").style.display = "none";
             document.getElementById("loosescore").innerHTML = score;
+            score = 0;
             }
             blacksnake();
           
@@ -319,12 +320,14 @@
                     {x: 110, y: 150}
                 ]
                 let score = 0;
+                document.getElementById('score').innerHTML = 0;
                 canvas.style.opacity = 1;
                 canvas.style.display = "block";
                 document.getElementById("tomjonathanform").style.display = "none";
                 document.getElementById("scoreanzeige").style.display = "block";
                 dx = 10;
                 dy = 0;
+                
                 main();
             });
         });
