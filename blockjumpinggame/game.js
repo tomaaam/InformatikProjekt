@@ -201,6 +201,7 @@ const controller = {
       case 65: // 'A'
         controller.left = key_state;
         break;
+      case 32: // 'Space'
       case 38: // up key or 'W'
       case 87: // 'W'
         controller.up = key_state;
