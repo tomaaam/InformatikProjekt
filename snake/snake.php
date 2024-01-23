@@ -93,6 +93,7 @@
                 <input type="submit" name="auslesen" value="Tabelle anzeigen" />
             </form>
             <button id="start">Erneut Spielen</button>
+            <button onclick="toggleGrid()">Grid einschalten (pro modus)</button>
         </div>
         <div id="scoreanzeige">
             <div>Score: </div>
@@ -107,18 +108,52 @@
         var canvas = document.getElementById('gameCanvas');
         var ctx = canvas.getContext("2d");
         
-        //creates a white rectangle (overwrites everything else)
-        function clearCanvas() {  
-            ctx.fillStyle = "white";
-            ctx.strokeStyle = "black";
+        // Globale Variable, um den Gitterstatus zu speichern
+        let isGridVisible = false;
 
-            ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
-            ctx.beginPath();
-            ctx.rect(0, 0, gameCanvas.width, gameCanvas.height); 
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = 10;
-            ctx.stroke();
+        // Funktion zum Ein- und Ausschalten des Grids
+        function toggleGrid() {
+            isGridVisible = !isGridVisible;
+            clearCanvas(); // Clear Canvas, um das Grid zu aktualisieren
         }
+
+        // Funktion zum Zeichnen des Canvas mit oder ohne Grid
+        function clearCanvas() {
+            // Setze die Hintergrundfarbe auf Weiß
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+
+            // Zeichne das Gitter, wenn isGridVisible true ist
+            if (isGridVisible) {
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 1;
+
+                const gridSize = 10;
+
+                // Zeichne vertikale Linien
+                for (let x = 0; x <= gameCanvas.width; x += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, gameCanvas.height);
+                    ctx.stroke();
+                }
+
+                // Zeichne horizontale Linien
+                for (let y = 0; y <= gameCanvas.height; y += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(gameCanvas.width, y);
+                    ctx.stroke();
+                }
+            }
+
+            // Zeichne den äußeren Rahmen
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
+        }
+
+
 
         //represent the snake
         let snake = [
@@ -138,7 +173,7 @@
             ctx.fillRect(snakePart.x, snakePart.y, 10, 10);  
             ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
         }
-        function drawSnake(fillcolor = "lightgreen", strokecolor = "darkgreen") {
+        function drawSnake(fillcolor = "lightgreen", strokecolor = "lightgreen") {
             snake.forEach(function(snakePart) {
                 drawSnakePart(snakePart, fillcolor, strokecolor);
             });
@@ -158,25 +193,37 @@
             const goingDown = dy === 10;
             const goingRight = dx === 10;
             const goingLeft = dx === -10;
-            if (keyPressed === LEFT_KEY && !goingRight) {
+            // Definiere die Tastencodes für WASD
+            const W_KEY = 87;
+            const A_KEY = 65;
+            const S_KEY = 83;
+            const D_KEY = 68;
+
+            // Überprüfe die gedrückte Taste und aktualisiere die Geschwindigungsvektoren entsprechend
+            if ((keyPressed === A_KEY || keyPressed === LEFT_KEY) && !goingRight) {
                 dx = -10;
                 dy = 0;
             }
-            if (keyPressed === UP_KEY && !goingDown) {
+
+            if ((keyPressed === W_KEY || keyPressed === UP_KEY) && !goingDown) {
                 dx = 0;
                 dy = -10;
             }
-            if (keyPressed === RIGHT_KEY && !goingLeft) {
+
+            if ((keyPressed === D_KEY || keyPressed === RIGHT_KEY) && !goingLeft) {
                 dx = 10;
                 dy = 0;
             }
-            if (keyPressed === DOWN_KEY && !goingDown) {
+
+            if ((keyPressed === S_KEY || keyPressed === DOWN_KEY) && !goingUp) {
                 dx = 0;
                 dy = 10;
             }
+
         }
 
-        //variables which identify how much in which direction the snake should move on the next tick (get changed in changeDirection() )
+        //variables which identify how much in which direction the snake 
+        //should move on the next tick (get changed in changeDirection())
         let dx = 10;
         let dy = 0;
 
