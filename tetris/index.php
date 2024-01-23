@@ -520,9 +520,9 @@
         }
 
         init();
-    </script>
-	<?php
-    require('submitS1.php');
+</script>
+<?php
+    require('submitS5.php');
     require('connector.php'); 
 
     if(isset($_POST['submit'])) {
