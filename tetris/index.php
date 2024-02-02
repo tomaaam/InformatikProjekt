@@ -523,7 +523,7 @@
 </script>
 <?php
     require('submitS5.php');
-    require('connector.php'); 
+    require('../connector.php'); 
 
     if(isset($_POST['submit'])) {
       register($_POST['username'], $_POST['score']);
