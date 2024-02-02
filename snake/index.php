@@ -79,7 +79,7 @@
     <div id="topleft"></div>
     <div id="container">
         <div id="tomjonathanform">
-            <form action="snake.php" method="POST">
+            <form action="index.php" method="POST">
                 <p>Herzlichen Glückwunsch</p>
                 <p style="display: inline;">
                     <label>Du hast einen Score von</label>
