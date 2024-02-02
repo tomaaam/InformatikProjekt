@@ -1,13 +1,14 @@
 <?php
 // connector.php
 
-$servername = "localhost";
+$servername = "mysql";
+$port = "3306";
 $username = "root";
-$password = "";
+$password = "wobo2024";
 $dbname = "informatikhighscores";
 
 // Create connection
-$db_link = mysqli_connect($servername, $username, $password, $dbname);
+$db_link = mysqli_connect($servername, $username, $password, $dbname, $port);
 
 // Check connection
 if (!$db_link) {
