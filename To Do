@@ -4,3 +4,15 @@ Snake: Score senden läuft, abfragen noch nicht
 hangman: hat keinen score
 Main website: 1 bild is nicht verfügbar und das tetris bild öffnet hangman
 tic tac toe: hat keine win/lose erkennung somit warscheinlich auch keine score integration nötig
+
+
+
+
+
+
+
+How to get Database info:
+sudo docker exec -it game-mysql-1 bash
+mysql -uroot -pwobo2024
+USE informatikhighscores;
+SELECT * FROM s1;
