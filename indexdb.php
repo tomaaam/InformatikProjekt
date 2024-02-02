@@ -77,7 +77,7 @@
     }
   ?>
 
-  <form action="index.php" method="POST">
+  <form action="indexdb.php" method="POST">
     <label>Nutzernamen eingeben:</label>
     <input type="text" name="username" /> <br />
     <input type="hidden" name="score" id="hiddenScore" />
