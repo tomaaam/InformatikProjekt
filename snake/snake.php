@@ -34,8 +34,10 @@
             transform: translate(-50%, -50%);
             z-index: 2;
             display: none;
-
+            
         }
+
+
         #start {
             top: 50%;
             left: 50%;
@@ -45,6 +47,7 @@
             display: inline;
             font-size: 20px;
         }
+        
     </style>
 </head>
 <body style="font-family: 'Segoe UI', Arial, sans-serif;" >
@@ -73,9 +76,7 @@
       echo('</table>');
     }
   ?>
-    <div id="topleft">
-
-    </div>
+    <div id="topleft"></div>
     <div id="container">
         <div id="tomjonathanform">
             <form action="snake.php" method="POST">
@@ -93,7 +94,7 @@
                 <input type="submit" name="auslesen" value="Tabelle anzeigen" />
             </form>
             <button id="start">Erneut Spielen</button>
-            <button onclick="toggleGrid()">Grid einschalten (pro modus)</button>
+            <button id="probutton" onclick="toggleGrid()">Grid einschalten (pro modus)</button>
         </div>
         <div id="scoreanzeige">
             <div>Score: </div>
@@ -283,53 +284,51 @@
                     hitToptWall ||
                     hitBottomWall
         };
-        //ending animations of the game + forms and scores
+        // ending animations of the game + forms and scores
         function gameEnd() {
-            //snake dies
-
+            // snake dies
             drawSnake("red", "red")
             x = 0;
+            
             function blacksnake() {
                 setTimeout(function onTick() {
                     drawSnakePart(snake[x], "black", "black");
                     x += 1;
 
-                    if (snake.length == x) gameEnd2(); 
+                    if (snake.length == x) gameEnd2();
                     else {
                         blacksnake()
                     };
                 }, 1200/snake.length);
-                
             };
-            function gameEnd2(){
             
-            //fades out the canvas
-            var opacity = 1;
-            var intervalId = setInterval(function() {
-                if (opacity > 0) {
-                    opacity -= 0.003; // Adjust the decrement value for speed
-                    canvas.style.opacity = opacity;
-                } 
-                else {
-                    clearInterval(intervalId);
-                    canvas.style.display = "none"; // Hide the canvas when it's completely faded
-                    document.getElementById("start").style.display = "block";
-                }
-            }, 10); // Adjust the interval for smoothness
+            function gameEnd2(){
+                // fades out the canvas
+                var opacity = 1;
+                var intervalId = setInterval(function() {
+                    if (opacity > 0) {
+                        opacity -= 0.003; // Adjust the decrement value for speed
+                        canvas.style.opacity = opacity;
+                    } 
+                    else {
+                        clearInterval(intervalId);
+                        canvas.style.display = "none"; // Hide the canvas when it's completely faded
+                        
+                        // forms and score get projected
+                        document.getElementById("hiddenScore").value = score;
+                        document.getElementById("tomjonathanform").style.display = "block";
+                        document.getElementById("start").style.display = "block";
+                        document.getElementById("scoreanzeige").style.display = "none";
+                        document.getElementById("loosescore").innerHTML = score;
+                        score = 0;
+                    }
+                }, 10); // Adjust the interval for smoothness
+            }
 
             
-            
-            //forms and score get projected
-            document.getElementById("hiddenScore").value = score;
-            document.getElementById("tomjonathanform").style.display = "block";
-            document.getElementById("start").style.display = "none";
-            document.getElementById("scoreanzeige").style.display = "none";
-            document.getElementById("loosescore").innerHTML = score;
-            score = 0;
-            }
             blacksnake();
-          
         };
+
         function main() {
             if (didGameEnd()){
                 gameEnd()
