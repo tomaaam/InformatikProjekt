@@ -1,5 +1,5 @@
 <?php
-    $db_link = mysqli_connect('localhost', 'root', '' , 'informatikhighscores');
+    $db_link = mysqli_connect('mysql', 'root', 'wobo2024' , 'informatikhighscores','3306');
 
     if (!$db_link) {
 
