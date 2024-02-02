@@ -1,0 +1,6 @@
+Tetris: Score abfrage läuft senden noch nicht
+Snake: Score senden läuft, abfragen noch nicht
+2048: hat keinen score
+hangman: hat keinen score
+Main website: 1 bild is nicht verfügbar und das tetris bild öffnet hangman
+tic tac toe: hat keine win/lose erkennung somit warscheinlich auch keine score integration nötig
