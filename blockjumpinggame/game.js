@@ -30,13 +30,13 @@ const backgroundImage = new Image();
 const groundImage = new Image();
 
 // Load images
-playerImages.runningRight[0].src = 'player-1.png';
-playerImages.runningRight[1].src = 'player-2.png';
-playerImages.runningLeft[0].src = 'player-1-flipped.png';
-playerImages.runningLeft[1].src = 'player-2-flipped.png';
-playerImages.standing.src = 'player-3.png';
-playerImages.jumpingRight.src = 'player-4.png';
-playerImages.jumpingLeft.src = 'player-4-flipped.png';
+playerImages.runningRight[0].src = 'Run_Right_1.png';
+playerImages.runningRight[1].src = 'Run_Right_2.png';
+playerImages.runningLeft[0].src = 'Run_Left_1.png';
+playerImages.runningLeft[1].src = 'Run_Left_2.png';
+playerImages.standing.src = 'IDLE.png';
+playerImages.jumpingRight.src = 'Jump_Right.png';
+playerImages.jumpingLeft.src = 'Jump_Left.png';
 backgroundImage.src = 'player-4.jpg';
 groundImage.src = 'player-3.jpg';
 
