@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2048</title>
     <link rel="stylesheet" href="2048.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="2048.js"></script>
 </head>
 
@@ -19,79 +20,44 @@
     <div id="endScreen" style="display: none;">
         <h3>Game Over!</h3>
         <p>Your score: <span id="finalScore">0</span></p>
-        <?php
-    require('submitS4.php');
-    require('../connector.php'); 
-
-    if(isset($_POST['submit'])) {
-      register($_POST['username'], $_POST['score']);
-    }
-      
-    if (isset($_POST['auslesen']) && !isset($_POST['submit'])) {
-        $limit = 10;  // Set the desired limit
-    
-        $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 ORDER BY SCORE DESC LIMIT $limit");
-    
-        echo('<table>');
-        while ($row = mysqli_fetch_array($db_res)) {
-            echo('<tr>');
-            echo('<td>' . $row['USERNAME'] . '</td>');
-            echo('<td>' . $row['SCORE'] . '</td>');
-            echo('<td>' . $row['DATE'] . '</td>');
-            echo('</tr>');
-        }
-        echo('</table>');
-    }
-
-    if (isset($_POST['lookup'])) {
-      $search = isset($_POST['search']) ? $_POST['search'] : '';
-
-      global $db_link;
-      $search = mysqli_real_escape_string($db_link, $search);
-
-      if (empty($search)) {
-        echo '<script type="text/javascript">alert("Zuerst einen Nutzernamen eingeben!");</script>';
-      }
-
-      else {
-        $result = runSQL("SELECT COUNT(*) as count FROM S4 WHERE USERNAME = '$search'");
-        $row = mysqli_fetch_assoc($result);
-
-        $count = intval($row['count']);
-
-        if ($count > 0) {
-          $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM S4 WHERE USERNAME = '$search' ORDER BY SCORE DESC;");
-
-          echo('<table>');
-          while($row = mysqli_fetch_array($db_res)) {
-            echo('<tr>');
-            echo('<td>' . $row['USERNAME'] . '</td>');
-            echo('<td>' . $row['SCORE'] . '</td>');
-            echo('<td>' . $row['DATE'] . '</td>');
-            echo('</tr>');
-          }
-          echo('</table>');
-        }
-
-        else {
-          echo '<script type="text/javascript">alert("Dieser Nutzername existiert nicht!");</script>';
-        }
-      }
-    }
-  ?>
-
-  <form action="index.php" method="POST">
-    <label>Nutzernamen eingeben:</label>
-    <input type="text" name="username" /> <br />
-    <input type="hidden" name="score" id="hiddenScore" />
-    <input type="submit" name="submit" value="Bestätigen" />
-    <input type="submit" name="auslesen" value="Tabelle anzeigen" /> <br />
-    <p>
-    <label>Nach Nutzernamen suchen:</label>
-    <input type="text" name="search" /> <br />
-    <input type="submit" name="lookup" value="Nach Score suchen" /> <br />
-  </form>
+        <div id="tableContainer"></div> <!-- Container for the table -->
+        <form action="index.php" method="POST">
+            <label>Nutzernamen eingeben:</label>
+            <input type="text" name="username" /> <br />
+            <input type="hidden" name="score" id="hiddenScore" />
+            <input type="submit" name="submit" value="Bestätigen" />
+            <input type="button" id="showTable" value="Tabelle anzeigen" /> <br />
+            <p>
+            <label>Nach Nutzernamen suchen:</label>
+            <input type="text" name="search" /> <br />
+            <input type="submit" name="lookup" value="Nach Score suchen" /> <br />
+        </form>
     </div>
 </body>
+
+<script>
+    $(document).ready(function() {
+        $('#showTable').click(function() {
+            var username = $('input[name="username"]').val(); // Get the username from the input field
+            var score = $('#finalScore').text(); // Get the final score from the span
+    
+            $.ajax({
+                url: 'submitS4.php', // The URL of the PHP file that handles the data
+                type: 'POST', // The HTTP method to use
+                data: { // The data to send to the server
+                    'username': username,
+                    'score': score
+                },
+                success: function(data) { // The function to execute when the request is successful
+                    // Update the HTML of your table with the data received from the server
+                    $('#tableContainer').html(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) { // The function to execute if the request fails
+                    console.error('AJAX error: ' + textStatus + ' - ' + errorThrown);
+                }
+            });
+        });
+    });
+</script>
 
 </html>
