@@ -76,14 +76,74 @@ function updateScore() {
 }
 
 // Show end screen function
-function showEndScreen() {
+async function showEndScreen() {
   if (!gameEnded) {
     gameEnded = true;
     document.body.innerHTML = '';
 
     const endScreen = document.createElement('div');
     endScreen.setAttribute('id', 'end-screen');
-    
+
+    // Fetch top 5 scores from the server
+    let topScores;
+    try {
+      const response = await getTopScores();
+      topScores = response.topScores;
+      console.log('Top Scores:', topScores);  // Log top scores for debugging
+    } catch (error) {
+      console.error('Error fetching top scores:', error);
+    }
+
+    // Check if topScores is defined and has a length property
+    if (topScores && topScores.length) {
+      // Create a table element
+      const scoreTable = document.createElement('table');
+
+      // Add table headers
+      const headerRow = document.createElement('tr');
+      const rankHeader = document.createElement('th');
+      const nameHeader = document.createElement('th');
+      const scoreHeader = document.createElement('th');
+      rankHeader.innerText = 'Rank';
+      nameHeader.innerText = 'Name';
+      scoreHeader.innerText = 'Score';
+      headerRow.appendChild(rankHeader);
+      headerRow.appendChild(nameHeader);
+      headerRow.appendChild(scoreHeader);
+      scoreTable.appendChild(headerRow);
+
+      // Populate the table with top scores
+      topScores.forEach((score, index) => {
+        const row = document.createElement('tr');
+        const rankCell = document.createElement('td');
+        const nameCell = document.createElement('td');
+        const scoreCell = document.createElement('td');
+        rankCell.innerText = (index + 1).toString();
+        nameCell.innerText = score.username;
+        scoreCell.innerText = score.score.toString();
+        row.appendChild(rankCell);
+        row.appendChild(nameCell);
+        row.appendChild(scoreCell);
+        scoreTable.appendChild(row);
+      });
+
+      // Apply CSS styling for centering and moving up
+      scoreTable.style.marginTop = '10px';
+      scoreTable.style.marginBottom = '20px';
+      scoreTable.style.marginLeft = 'auto';
+      scoreTable.style.marginRight = 'auto';
+
+      // Add the table to the end screen
+      endScreen.appendChild(scoreTable);
+
+      // Example: Log usernames and scores
+      topScores.forEach(score => {
+        console.log(`Username: ${score.username}, Score: ${score.score}`);
+      });
+    } else {
+      console.error('Top scores are undefined or have no length property');
+    }
+   
     const scoreText = document.createElement('p');
     scoreText.innerText = `Your score: ${score}`;
     
@@ -103,7 +163,7 @@ function showEndScreen() {
             submitButton.disabled = true;
             setTimeout(() => {
                 window.location.reload();
-            }, 400);
+            }, 40000);
         } else {
           const playerName = "Anonym"
             simulateDataTransfer(playerName, score);
@@ -111,10 +171,10 @@ function showEndScreen() {
             submitButton.disabled = true;
             setTimeout(() => {
                 window.location.reload();
-            }, 200);
+            }, 20000);
         }
     });
-    
+
     endScreen.appendChild(scoreText);
     endScreen.appendChild(nameLabel);
     endScreen.appendChild(nameInput);
@@ -138,6 +198,31 @@ function handleGameOver() {
   if (!gameEnded) {
     showEndScreen();
   }
+}
+
+// Function to fetch top 5 scores from the server
+async function getTopScores() {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'getTopScores.php', true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+          try {
+            const topScores = JSON.parse(xhr.responseText);
+            resolve(topScores);
+          } catch (error) {
+            console.error('Error parsing JSON:', error);
+            reject('Invalid JSON');
+          }
+        } else {
+          console.error('HTTP request failed with status:', xhr.status);
+          reject('HTTP Error');
+        }
+      }
+    };
+    xhr.send();
+  });
 }
 
 // Simulate data transfer function
