@@ -36,26 +36,25 @@
 </body>
 
 <script>
-    $(document).ready(function() {
-        $('#showTable').click(function() {
-            var username = $('input[name="username"]').val(); // Get the username from the input field
-            var score = $('#finalScore').text(); // Get the final score from the span
+    $('form').submit(function(event) {
+        event.preventDefault(); // Prevent the form from being submitted the traditional way
     
-            $.ajax({
-                url: 'submitS4.php', // The URL of the PHP file that handles the data
-                type: 'POST', // The HTTP method to use
-                data: { // The data to send to the server
-                    'username': username,
-                    'score': score
-                },
-                success: function(data) { // The function to execute when the request is successful
-                    // Update the HTML of your table with the data received from the server
-                    $('#tableContainer').html(data);
-                },
-                error: function(jqXHR, textStatus, errorThrown) { // The function to execute if the request fails
-                    console.error('AJAX error: ' + textStatus + ' - ' + errorThrown);
-                }
-            });
+        var username = $('input[name="username"]').val(); // Get the username from the input field
+        var score = $('#finalScore').text(); // Get the final score from the span
+    
+        $.ajax({
+            url: 'submitS4.php', // The URL of the PHP file that handles the data
+            type: 'POST', // The HTTP method to use
+            data: { // The data to send to the server
+                'username': username,
+                'score': score
+            },
+            success: function(data) {
+                console.log('Success:', data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('Error:', textStatus, errorThrown);
+            }
         });
     });
 </script>
