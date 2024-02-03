@@ -27,7 +27,7 @@
     }
 
     function displayTopScores() {
-      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s5 ORDER BY SCORE DESC");
+      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 ORDER BY SCORE DESC");
       
       echo('<table>');
       while($row = mysqli_fetch_array($db_res)) {
@@ -43,12 +43,12 @@
     function searchUserScores($username) {
       global $db_link;
 
-      $result = runSQL("SELECT COUNT(*) as count FROM s5 WHERE USERNAME = '$username'");
+      $result = runSQL("SELECT COUNT(*) as count FROM s4 WHERE USERNAME = '$username'");
       $row = mysqli_fetch_assoc($result);
       $count = intval($row['count']);
 
       if ($count > 0) {
-        $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s5 WHERE USERNAME = '$username' ORDER BY SCORE DESC;");
+        $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 WHERE USERNAME = '$username' ORDER BY SCORE DESC;");
 
         echo('<table>');
         while($row = mysqli_fetch_array($db_res)) {
