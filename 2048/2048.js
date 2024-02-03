@@ -224,7 +224,7 @@ function showGameOverScreen() {
             // Reload the page after a delay (1000 milliseconds = 1 second)
             setTimeout(() => {
                 location.reload();
-            }, 1000);
+            }, 15000);
         }
     }
 }
