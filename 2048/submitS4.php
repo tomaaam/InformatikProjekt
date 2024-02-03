@@ -1,6 +1,6 @@
 <?php
 
-function register($username, $score) {
+function submitS4($username, $score) {
     global $db_link;
     
     $username = mysqli_real_escape_string($db_link, $username);
