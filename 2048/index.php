@@ -1,68 +1,89 @@
 <?php
-    require('submitS4.php');
-    require('../connector.php'); 
+require('../connector.php');
 
-    if(isset($_POST['submit'])) {
-      register($_POST['username'], $_POST['score']);
-    }
-      
-    if (isset($_POST['auslesen'])) {
-      // Display top scores
-      displayTopScores();
-    }
+if (isset($_POST['submit'])) {
+    register($_POST['username'], $_POST['score']);
+} elseif (isset($_POST['auslesen'])) {
+    displayTopScores();
+} elseif (isset($_POST['lookup'])) {
+    $search = isset($_POST['search']) ? $_POST['search'] : '';
 
-    if (isset($_POST['lookup'])) {
-      $search = isset($_POST['search']) ? $_POST['search'] : '';
+    global $db_link;
+    $search = mysqli_real_escape_string($db_link, $search);
 
-      global $db_link;
-      $search = mysqli_real_escape_string($db_link, $search);
-
-      if (empty($search)) {
+    if (empty($search)) {
         echo '<script type="text/javascript">alert("Zuerst einen Nutzernamen eingeben!");</script>';
-      } else {
+    } else {
         searchUserScores($search);
-        header("Location: index.php");
-        exit();
-      }
+    }
+}
+
+function register($username, $score)
+{
+    global $db_link;
+
+    $username = mysqli_real_escape_string($db_link, $username);
+    $score = mysqli_real_escape_string($db_link, $score);
+
+    if (empty($username)) {
+        $username = "Anonym";
     }
 
-    function displayTopScores() {
-      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 ORDER BY SCORE DESC");
-      
-      echo('<table>');
-      while($row = mysqli_fetch_array($db_res)) {
+    $query = "INSERT INTO s4 (USERNAME, SCORE) VALUES ('$username', '$score')";
+    runSQL($query);
+
+    echo '<p>Erfolgreich!</p>';
+    header("Location: index.php");
+    exit();
+}
+
+function displayTopScores()
+{
+    $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 ORDER BY SCORE DESC");
+
+    echo('<table>');
+    while ($row = mysqli_fetch_array($db_res)) {
         echo('<tr>');
         echo('<td>' . $row['USERNAME'] . '</td>');
         echo('<td>' . $row['SCORE'] . '</td>');
         echo('<td>' . $row['DATE'] . '</td>');
         echo('</tr>');
-      }
-      echo('</table>');
     }
+    echo('</table>');
 
-    function searchUserScores($username) {
-      global $db_link;
+    // Redirect back to index.php after displaying top scores
+    header("Location: index.php");
+    exit();
+}
 
-      $result = runSQL("SELECT COUNT(*) as count FROM s4 WHERE USERNAME = '$username'");
-      $row = mysqli_fetch_assoc($result);
-      $count = intval($row['count']);
+function searchUserScores($username)
+{
+    global $db_link;
 
-      if ($count > 0) {
+    $result = runSQL("SELECT COUNT(*) as count FROM s4 WHERE USERNAME = '$username'");
+    $row = mysqli_fetch_assoc($result);
+    $count = intval($row['count']);
+
+    if ($count > 0) {
         $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 WHERE USERNAME = '$username' ORDER BY SCORE DESC;");
 
         echo('<table>');
-        while($row = mysqli_fetch_array($db_res)) {
-          echo('<tr>');
-          echo('<td>' . $row['USERNAME'] . '</td>');
-          echo('<td>' . $row['SCORE'] . '</td>');
-          echo('<td>' . $row['DATE'] . '</td>');
-          echo('</tr>');
+        while ($row = mysqli_fetch_array($db_res)) {
+            echo('<tr>');
+            echo('<td>' . $row['USERNAME'] . '</td>');
+            echo('<td>' . $row['SCORE'] . '</td>');
+            echo('<td>' . $row['DATE'] . '</td>');
+            echo('</tr>');
         }
         echo('</table>');
-      } else {
+    } else {
         echo '<script type="text/javascript">alert("Dieser Nutzername existiert nicht!");</script>';
-      }
     }
+
+    // Redirect back to index.php after searching user scores
+    header("Location: index.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
