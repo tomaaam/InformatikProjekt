@@ -22,7 +22,7 @@
 
         <!-- Integrate the PHP code here -->
         <?php
-        require('submitS1.php');
+        require('submitS4.php');
         require('../connector.php');
 
         if (isset($_POST['submit'])) {
