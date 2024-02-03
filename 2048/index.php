@@ -27,20 +27,20 @@
       register($_POST['username'], $_POST['score']);
     }
       
-    if (isset($_POST['auslesen'])) {
-      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 ORDER BY SCORE DESC LIMIT 7");
-      
-      echo('<table>');
-      while($row = mysqli_fetch_array($db_res)) {
-        echo('<tr>');
-        echo('<td>' . $row['USERNAME'] . '</td>');
-        echo('<td>' . $row['SCORE'] . '</td>');
-        echo('<td>' . $row['DATE'] . '</td>');
-        echo('</tr>');
-      }
-      echo('</table>');
-           header("Location: index.php");
-   exit();
+    if (isset($_POST['auslesen']) && !isset($_POST['submit'])) {
+        $limit = 10;  // Set the desired limit
+    
+        $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 ORDER BY SCORE DESC LIMIT $limit");
+    
+        echo('<table>');
+        while ($row = mysqli_fetch_array($db_res)) {
+            echo('<tr>');
+            echo('<td>' . $row['USERNAME'] . '</td>');
+            echo('<td>' . $row['SCORE'] . '</td>');
+            echo('<td>' . $row['DATE'] . '</td>');
+            echo('</tr>');
+        }
+        echo('</table>');
     }
 
     if (isset($_POST['lookup'])) {
