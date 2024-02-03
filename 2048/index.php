@@ -50,8 +50,9 @@
                 'score': score
             },
             success: function(data) {
-                console.log('Success:', data);
-            },
+    console.log('Success:', data); // Add this line
+    $('#tableContainer').html(data);
+},
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log('Error:', textStatus, errorThrown);
             }
