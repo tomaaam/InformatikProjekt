@@ -23,7 +23,7 @@
         <!-- Integrated PHP code for s4 database and submitS4 function -->
         <?php
         require('submitS4.php'); // Assuming you have a file named submitS4.php
-        require('connector.php');
+        require('../connector.php');
 
         if (isset($_POST['submit'])) {
             submitS4($_POST['username'], $_POST['score']); // Change to the appropriate function
