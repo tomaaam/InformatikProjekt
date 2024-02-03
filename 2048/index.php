@@ -23,14 +23,14 @@
         <!-- Integrate the PHP code here -->
         <?php
         require('submitS1.php');
-        require('connector.php');
+        require('../connector.php');
 
         if (isset($_POST['submit'])) {
             register($_POST['username'], $_POST['score']);
         }
 
         if (isset($_POST['auslesen'])) {
-            $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s1 ORDER BY SCORE DESC");
+            $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 ORDER BY SCORE DESC");
 
             echo('<table>');
             while ($row = mysqli_fetch_array($db_res)) {
@@ -52,13 +52,13 @@
             if (empty($search)) {
                 echo '<script type="text/javascript">alert("Zuerst einen Nutzernamen eingeben!");</script>';
             } else {
-                $result = runSQL("SELECT COUNT(*) as count FROM S1 WHERE USERNAME = '$search'");
+                $result = runSQL("SELECT COUNT(*) as count FROM s4 WHERE USERNAME = '$search'");
                 $row = mysqli_fetch_assoc($result);
 
                 $count = intval($row['count']);
 
                 if ($count > 0) {
-                    $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM S1 WHERE USERNAME = '$search' ORDER BY SCORE DESC;");
+                    $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 WHERE USERNAME = '$search' ORDER BY SCORE DESC;");
 
                     echo('<table>');
                     while ($row = mysqli_fetch_array($db_res)) {
