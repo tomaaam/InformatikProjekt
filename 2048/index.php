@@ -83,6 +83,7 @@ function searchUserScores($username)
     // Redirect back to index.php after searching user scores
     header("Location: index.php");
     exit();
+    echo('<p>Erfolgreich!</p>');
 }
 ?>
 <!DOCTYPE html>
