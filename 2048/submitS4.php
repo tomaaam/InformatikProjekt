@@ -13,7 +13,7 @@
     }
 
     // Redirect to a new page after form submission
-    header("Location: success.php"); // Replace "success.php" with the actual page you want to redirect to
+    header("Location: index.php"); // Replace "success.php" with the actual page you want to redirect to
     exit();
 }
 ?>
