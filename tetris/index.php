@@ -520,12 +520,6 @@
         }
 
         init();
-if (punktestand.isSpielVorbei()) {
-    document.getElementById('hiddenScore').value = punktestand.getPunkte();
-    // Submit the form
-    document.forms[0].submit();
-    return;
-}
 </script>
 <?php
     require('submitS5.php');
