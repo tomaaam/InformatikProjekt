@@ -53,7 +53,7 @@ function updateTile(tile, num) {
 
 document.addEventListener('keyup', (e) => {
     if (isGameOver()) {
-        showGameOverScreen();
+        showEndScreen();
         return;
     }
     if (e.code == "ArrowLeft") {
@@ -208,4 +208,9 @@ function isGameOver() {
         return true; // No valid moves left
     }
     return false; // There are empty tiles, the game is not over yet
+}
+function showEndScreen() {
+    document.getElementById("endScreen").style.display = "block";
+    document.getElementById("finalScore").innerText = score;
+    document.getElementById("hiddenScore").value = score;
 }
