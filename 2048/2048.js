@@ -209,14 +209,23 @@ function isGameOver() {
     }
     return false; // There are empty tiles, the game is not over yet
 }
+let gameOverPromptShown = false;
+
 function showGameOverScreen() {
-    const playerName = prompt('Game Over! Enter your name:');
-    if (playerName !== null) {
-        // If the player entered a name (not canceled)
-        const playerScore = score;
-        submitScore(playerName, playerScore);
-        // Reload the page after submitting the score
-        location.reload();
+    if (!gameOverPromptShown) {
+        gameOverPromptShown = true;
+
+        const playerName = prompt('Game Over! Enter your name:');
+        if (playerName !== null) {
+            // If the player entered a name (not canceled)
+            const playerScore = score;
+            submitScore(playerName, playerScore);
+
+            // Reload the page after a delay (1000 milliseconds = 1 second)
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
     }
 }
 
