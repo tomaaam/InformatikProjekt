@@ -28,7 +28,7 @@
     }
       
     if (isset($_POST['auslesen'])) {
-      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 ORDER BY SCORE DESC");
+      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 ORDER BY SCORE DESC LIMIT 7");
       
       echo('<table>');
       while($row = mysqli_fetch_array($db_res)) {
@@ -39,6 +39,8 @@
         echo('</tr>');
       }
       echo('</table>');
+           header("Location: index.php");
+   exit();
     }
 
     if (isset($_POST['lookup'])) {
