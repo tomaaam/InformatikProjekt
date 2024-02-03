@@ -163,7 +163,7 @@ async function showEndScreen() {
             submitButton.disabled = true;
             setTimeout(() => {
                 window.location.reload();
-            }, 40000);
+            }, 400);
         } else {
           const playerName = "Anonym"
             simulateDataTransfer(playerName, score);
@@ -171,7 +171,7 @@ async function showEndScreen() {
             submitButton.disabled = true;
             setTimeout(() => {
                 window.location.reload();
-            }, 20000);
+            }, 200);
         }
     });
 
