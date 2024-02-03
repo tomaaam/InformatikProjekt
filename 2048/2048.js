@@ -53,7 +53,7 @@ function updateTile(tile, num) {
 
 document.addEventListener('keyup', (e) => {
         if (isGameOver()) {
-        alert("Game Over!");
+        showGameOverScreen();
         return;
     }
     if (e.code == "ArrowLeft") {
@@ -217,4 +217,51 @@ function isGameOver() {
 
     // No empty tiles and no possible merges, the game is over
     return true;
+}
+function showGameOverScreen() {
+    // Display game over message
+    alert("Game Over!");
+
+    // Display top scores
+    displayTopScores();
+
+    // Ask user to input name
+    let playerName = prompt("Enter your name:");
+
+    // Check if the user entered a name
+    if (playerName.trim() !== "") {
+        // Submit the score to the database using submitS5.php
+        submitScore(playerName, score);
+    }
+}
+
+function displayTopScores() {
+    // Use AJAX to fetch top scores from the database
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Parse the response and display the top scores
+                let scores = JSON.parse(xhr.responseText);
+                showTopScoresTable(scores);
+            } else {
+                console.error("Error fetching top scores");
+            }
+        }
+    };
+    xhr.open("POST", "submitS4.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("auslesen=true");
+}
+
+function showTopScoresTable(scores) {
+    // Create a table to display top scores
+    let table = "<table><tr><th>Username</th><th>Score</th><th>Date</th></tr>";
+    for (let i = 0; i < scores.length; i++) {
+        table += "<tr><td>" + scores[i].USERNAME + "</td><td>" + scores[i].SCORE + "</td><td>" + scores[i].DATE + "</td></tr>";
+    }
+    table += "</table>";
+
+    // Display the table
+    document.body.innerHTML += table;
 }
