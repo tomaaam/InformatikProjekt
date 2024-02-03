@@ -6,3 +6,4 @@ src: Quellordner für die Inhalte, die auf der Webseite angezeigt werden
 
 docker-compose.yaml: Docker-Konfigurationsdatei, die beim Ausführen die Container erstellt
 
+Zur Ausführung wird eine Docker-Installation benötigt!
