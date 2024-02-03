@@ -82,7 +82,7 @@
             <label>Enter your username:</label>
             <input type="text" name="username" />
             <input type="hidden" name="score" id="hiddenScore" />
-            <input type="submit" name="submit" value="Submit Score" />
+            <button type="submit" name="submit">Submit Score</button>
         </form>
 
         <script>
