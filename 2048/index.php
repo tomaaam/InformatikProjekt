@@ -9,10 +9,21 @@
     </head>
 
     <body>
-        <h1>2048</h1>
-        <hr>
-        <h2>Score: <span id="score">0</span></h2>
-        <div id="board">
-        </div>
-    </body>
+    <h1>2048</h1>
+    <hr>
+    <h2>Score: <span id="score">0</span></h2>
+    <div id="board"></div>
+
+    <!-- New end screen div -->
+    <div id="endScreen" style="display: none;">
+        <h3>Game Over!</h3>
+        <p>Your score: <span id="finalScore">0</span></p>
+        <form action="index.php" method="POST">
+            <label>Enter your username:</label>
+            <input type="text" name="username" />
+            <input type="hidden" name="score" id="hiddenScore" />
+            <input type="submit" name="submit" value="Submit Score" />
+        </form>
+    </div>
+</body>
 </html>
