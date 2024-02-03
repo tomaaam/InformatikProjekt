@@ -85,16 +85,16 @@
                 tasteGedrueckt = true;
 
                 if (punktestand.isSpielVorbei()) {
-    // Ensure 'score' is a valid numeric value (default to 0 if not)
-    var scoreValue = parseInt(punktestand.getPunkte(), 10) || 0;
-    
-    // Set the 'hiddenScore' value
-    document.getElementById('hiddenScore').value = scoreValue;
-
-    // Submit the form
-    document.forms[0].submit();
-    return;
-}
+		    // Ensure 'score' is a valid numeric value (default to 0 if not)
+		    var scoreValue = parseInt(punktestand.getPunkte(), 10) || 0;
+		    
+		    // Set the 'hiddenScore' value
+		    document.getElementById('hiddenScore').value = scoreValue;
+		
+		    // Submit the form
+		    document.forms[0].submit();
+		    return;
+		}
 
 
                 switch (ereignis.key) {
