@@ -267,7 +267,7 @@ function submitScore(username, score) {
     // Modify this function based on your backend implementation
 
     // Example using Fetch API:
-    fetch('submitS5.php', {
+    fetch('submitS4.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
