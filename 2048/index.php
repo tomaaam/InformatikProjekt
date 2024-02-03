@@ -20,17 +20,17 @@
         <h3>Game Over!</h3>
         <p>Your score: <span id="finalScore">0</span></p>
 
-        <!-- Integrate the PHP code here -->
+        <!-- Integrated PHP code for s4 database and submitS4 function -->
         <?php
-        require('submitS4.php');
-        require('../connector.php');
+        require('submitS4.php'); // Assuming you have a file named submitS4.php
+        require('connector.php');
 
         if (isset($_POST['submit'])) {
-            register($_POST['username'], $_POST['score']);
+            submitS4($_POST['username'], $_POST['score']); // Change to the appropriate function
         }
 
         if (isset($_POST['auslesen'])) {
-            $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 ORDER BY SCORE DESC");
+            $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 ORDER BY SCORE DESC"); // Change to s4
 
             echo('<table>');
             while ($row = mysqli_fetch_array($db_res)) {
@@ -52,13 +52,13 @@
             if (empty($search)) {
                 echo '<script type="text/javascript">alert("Zuerst einen Nutzernamen eingeben!");</script>';
             } else {
-                $result = runSQL("SELECT COUNT(*) as count FROM s4 WHERE USERNAME = '$search'");
+                $result = runSQL("SELECT COUNT(*) as count FROM s4 WHERE USERNAME = '$search'"); // Change to s4
                 $row = mysqli_fetch_assoc($result);
 
                 $count = intval($row['count']);
 
                 if ($count > 0) {
-                    $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 WHERE USERNAME = '$search' ORDER BY SCORE DESC;");
+                    $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 WHERE USERNAME = '$search' ORDER BY SCORE DESC;"); // Change to s4
 
                     echo('<table>');
                     while ($row = mysqli_fetch_array($db_res)) {
@@ -75,26 +75,7 @@
             }
         }
         ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>2048</title>
-        <link rel="stylesheet" href="2048.css">
-        <script src="2048.js"></script>
-    </head>
-
-    <body>
-    <h1>2048</h1>
-    <hr>
-    <h2>Score: <span id="score">0</span></h2>
-    <div id="board"></div>
-
-    <!-- New end screen div -->
-    <div id="endScreen" style="display: none;">
-        <h3>Game Over!</h3>
-        <p>Your score: <span id="finalScore">0</span></p>
+        <!-- End of integrated PHP code -->
 
         <form action="index.php" method="POST">
             <label>Enter your username:</label>
