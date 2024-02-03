@@ -22,11 +22,11 @@
 
         <!-- Integrated PHP code for s4 database and submitS4 function -->
         <?php
+        require('../connector.php'); // Adjust the path to connector.php
         require('submitS4.php'); // Assuming you have a file named submitS4.php
-        require('../connector.php');
 
         if (isset($_POST['submit'])) {
-            register($_POST['username'], $_POST['score']); // Change to register
+            submitS4($_POST['username'], $_POST['score']); // Change to submitS4
         }
 
         if (isset($_POST['auslesen'])) {
@@ -77,12 +77,30 @@
         ?>
         <!-- End of integrated PHP code -->
 
-        <form action="index.php" method="POST">
+        <!-- Form handling with JavaScript -->
+        <form id="scoreForm">
             <label>Enter your username:</label>
             <input type="text" name="username" />
             <input type="hidden" name="score" id="hiddenScore" />
             <input type="submit" name="submit" value="Submit Score" />
         </form>
+
+        <script>
+            document.getElementById('scoreForm').addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // AJAX/fetch code to submit the form data to submitS4.php
+                // ...
+
+                // Assume the JSON response from submitS4.php is stored in response variable
+                const response = { success: true }; // Replace with actual response
+
+                if (response.success) {
+                    // Redirect to a new page after form submission
+                    window.location.href = 'success.php'; // Replace "success.php" with the actual page you want to redirect to
+                }
+            });
+        </script>
     </div>
 </body>
 
