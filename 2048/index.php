@@ -26,7 +26,7 @@
         require('submitS4.php'); // Assuming you have a file named submitS4.php
 
         if (isset($_POST['submit'])) {
-            register($_POST['username'], $_POST['score']); // Change to submitS4
+            submitS4($_POST['username'], $_POST['score']); // Change to submitS4
         }
 
         if (isset($_POST['auslesen'])) {
@@ -89,16 +89,25 @@
             document.getElementById('scoreForm').addEventListener('submit', function (event) {
                 event.preventDefault(); // Prevent the default form submission
 
-                // AJAX/fetch code to submit the form data to submitS4.php
-                // ...
+                const form = event.target;
+                const formData = new FormData(form);
 
-                // Assume the JSON response from submitS4.php is stored in response variable
-                const response = { success: true }; // Replace with actual response
-
-                if (response.success) {
-                    // Redirect to a new page after form submission
-                    window.location.href = 'success.php'; // Replace "success.php" with the actual page you want to redirect to
-                }
+                // Your AJAX/fetch code to submit the form data to submitS4.php
+                fetch('submitS4.php', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Assume the JSON response from submitS4.php is stored in data variable
+                    if (data.success) {
+                        // Redirect to a new page after form submission
+                        window.location.href = 'success.php'; // Replace "success.php" with the actual page you want to redirect to
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
             });
         </script>
     </div>
