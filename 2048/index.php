@@ -26,7 +26,7 @@
         require('submitS4.php'); // Assuming you have a file named submitS4.php
 
         if (isset($_POST['submit'])) {
-            submitS4($_POST['username'], $_POST['score']); // Change to submitS4
+            register($_POST['username'], $_POST['score']); // Change to submitS4
         }
 
         if (isset($_POST['auslesen'])) {
