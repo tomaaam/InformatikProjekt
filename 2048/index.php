@@ -26,7 +26,7 @@
         require('../connector.php');
 
         if (isset($_POST['submit'])) {
-            submitS4($_POST['username'], $_POST['score']); // Change to the appropriate function
+            register($_POST['username'], $_POST['score']); // Change to register
         }
 
         if (isset($_POST['auslesen'])) {
