@@ -26,7 +26,7 @@
     <script>
       // Function to handle the redirection when the back button is clicked
       document.getElementById('backButton').onclick = function() {
-        window.location.href = 'https://www.example.com'; // Replace with the desired URL
+        window.location.href = 'http://niklas-server.de:2024/'; // Replace with the desired URL
       };
     </script>
   </body>
