@@ -18,7 +18,7 @@
     <div id="endScreen" style="display: none;">
         <h3>Game Over!</h3>
         <p>Your score: <span id="finalScore">0</span></p>
-        <form action="index.php" method="POST">
+        <form action="submitS4.php" method="POST">
             <label>Enter your username:</label>
             <input type="text" name="username" />
             <input type="hidden" name="score" id="hiddenScore" />
