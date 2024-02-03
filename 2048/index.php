@@ -21,6 +21,8 @@
         echo '<script type="text/javascript">alert("Zuerst einen Nutzernamen eingeben!");</script>';
       } else {
         searchUserScores($search);
+        header("Location: index.php");
+        exit();
       }
     }
 
