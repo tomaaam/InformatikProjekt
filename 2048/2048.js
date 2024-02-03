@@ -52,6 +52,10 @@ function updateTile(tile, num) {
 }
 
 document.addEventListener('keyup', (e) => {
+        if (isGameOver()) {
+        alert("Game Over!");
+        return;
+    }
     if (e.code == "ArrowLeft") {
         slideLeft();
         setTwo();
@@ -186,4 +190,31 @@ function hasEmptyTile() {
         }
     }
     return false;
+}
+function isGameOver() {
+    // Check for available empty tiles
+    if (hasEmptyTile()) {
+        return false; // There are still empty tiles, the game can continue
+    }
+
+    // Check for possible merges in rows
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns - 1; c++) {
+            if (board[r][c] === board[r][c + 1]) {
+                return false; // There is a merge possible in rows, the game can continue
+            }
+        }
+    }
+
+    // Check for possible merges in columns
+    for (let c = 0; c < columns; c++) {
+        for (let r = 0; r < rows - 1; r++) {
+            if (board[r][c] === board[r + 1][c]) {
+                return false; // There is a merge possible in columns, the game can continue
+            }
+        }
+    }
+
+    // No empty tiles and no possible merges, the game is over
+    return true;
 }
