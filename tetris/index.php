@@ -530,7 +530,7 @@
     }
       
     if (isset($_POST['auslesen'])) {
-      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s1 ORDER BY SCORE DESC");
+      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s5 ORDER BY SCORE DESC");
       
       echo('<table>');
       while($row = mysqli_fetch_array($db_res)) {
@@ -554,7 +554,7 @@
       }
 
       else {
-        $result = runSQL("SELECT COUNT(*) as count FROM S1 WHERE USERNAME = '$search'");
+        $result = runSQL("SELECT COUNT(*) as count FROM S5 WHERE USERNAME = '$search'");
         $row = mysqli_fetch_assoc($result);
 
         $count = intval($row['count']);
