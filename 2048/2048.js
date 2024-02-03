@@ -210,21 +210,16 @@ function isGameOver() {
     return false; // There are empty tiles, the game is not over yet
 }
 function showGameOverScreen() {
-    // Display game over message
-    alert("Game Over!");
-
-    // Display top scores
-    displayTopScores();
-
-    // Ask user to input name
-    let playerName = prompt("Enter your name:");
-
-    // Check if the user entered a name
-    if (playerName.trim() !== "") {
-        // Submit the score to the database using submitS5.php
-        submitScore(playerName, score);
+    const playerName = prompt('Game Over! Enter your name:');
+    if (playerName !== null) {
+        // If the player entered a name (not canceled)
+        const playerScore = score;
+        submitScore(playerName, playerScore);
+        // Reload the page after submitting the score
+        location.reload();
     }
 }
+
 
 function displayTopScores() {
     // Use AJAX to fetch top scores from the database
@@ -255,4 +250,22 @@ function showTopScoresTable(scores) {
 
     // Display the table
     document.body.innerHTML += table;
+}
+function submitScore(username, score) {
+    // Make an AJAX request to submit the score using submitS5.php or any other backend logic
+    // You can use XMLHttpRequest, Fetch API, or any other method to send data to the server
+    // For simplicity, I'll assume you have a submitS5.php script for submitting scores
+    // Modify this function based on your backend implementation
+
+    // Example using Fetch API:
+    fetch('submitS5.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `username=${encodeURIComponent(username)}&score=${encodeURIComponent(score)}`,
+    })
+    .then(response => response.text())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error submitting score:', error));
 }
