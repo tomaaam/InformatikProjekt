@@ -20,7 +20,7 @@
         <h3>Game Over!</h3>
         <p>Your score: <span id="finalScore">0</span></p>
         <?php
-    require('submitS1.php');
+    require('submitS4.php');
     require('../connector.php'); 
 
     if(isset($_POST['submit'])) {
@@ -28,7 +28,7 @@
     }
       
     if (isset($_POST['auslesen'])) {
-      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s1 ORDER BY SCORE DESC");
+      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s4 ORDER BY SCORE DESC");
       
       echo('<table>');
       while($row = mysqli_fetch_array($db_res)) {
@@ -52,13 +52,13 @@
       }
 
       else {
-        $result = runSQL("SELECT COUNT(*) as count FROM S1 WHERE USERNAME = '$search'");
+        $result = runSQL("SELECT COUNT(*) as count FROM S4 WHERE USERNAME = '$search'");
         $row = mysqli_fetch_assoc($result);
 
         $count = intval($row['count']);
 
         if ($count > 0) {
-          $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM S1 WHERE USERNAME = '$search' ORDER BY SCORE DESC;");
+          $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM S4 WHERE USERNAME = '$search' ORDER BY SCORE DESC;");
 
           echo('<table>');
           while($row = mysqli_fetch_array($db_res)) {
