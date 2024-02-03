@@ -1,6 +1,6 @@
 <?php
 
-    function submitS4($username, $score) {
+    function register($username, $score) {
         
         echo('<p>Erfolgreich!</p>');
             
