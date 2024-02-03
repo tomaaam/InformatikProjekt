@@ -1,0 +1,33 @@
+Programmierprojekt Informatik
+
+Sinatra-Script on Ruby installieren und kennenlernen => 22.11. (https://rubydoc.info/gems/sinatra)
+
+Programm "läuft im Browser" => Localhost/HTTP-Adresse
+Zur Kommunikation mit Datenbanken wird die "Sequel"-Extension empfohlen (https://github.com/rtomayko/sinatra-sequel)
+Quellen:
+https://www.scaleway.com/en/docs/tutorials/sinatra/ (gute Quelle)
+https://www.sitepoint.com/mysql-data-web/
+https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-ruby-and-sinatra-development-environment (nicht hilfreich)
+=> Entscheidung für PHP, Verwerfung von Sinatra und Ruby...
+
+PHP-Script und Testumgebung aufbauen => 29.11. (DONE)
+
+Nutzung von XAMPP, PHP Script problemlos, Verbindung zu HTML über Ajax
+Datenbank erstellen (SQLite oder MySQL) => 29.11. (DONE)
+
+SQLite NICHT geeignet für Web-Orientieren Zugang auf die Datenbank
+XAMPP => SQL-Database auf localhost (myphpadmin) + php-Workspace (Webserver)
+Web- und Datenbankserver => 18.12. (DONE)
+
+Spalten: ID (INT), USERNAME (VARCHAR, 20), SCORE (INT), DATE (DATE)
+ID (INT, AUTO_INCREMENT), USERNAME (VARCHAR, 20, DEFAULT=Anonym), SCORE (INT), DATE (datetime, current_timestamp())
+Implementation in HTML der anderen Gruppen => DONE
+
+Erstellung der Tables für die Spiele
+E-Mail auf IServ oder GitHub-Repository (Gruppen müssen nur S1 durch ihre Nummer ersetzen (siehe oben) + ORDER BY SCORE DESC in runSQL einfügen)
+Absprechung und Anpassung an die anderen Gruppen (OPEN)
+
+Links:
+
+https://entwickler.de/php/php-tutorial-datenbankprogrammierung-mit-php-und-mysql
+https://youtu.be/ifddQHjefxk?si=ZidfCelH-GBcFexS
