@@ -64,7 +64,6 @@
     if (isset($_POST['auslesen'])) {
         $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s2 ORDER BY SCORE DESC");
         
-        echo('<div id="highscoreTable" style="display:none;">');
         echo('<table>');
         while ($row = mysqli_fetch_array($db_res)) {
             echo('<tr>');
@@ -74,7 +73,6 @@
             echo('</tr>');
         }
         echo('</table>');
-        echo('</div>');
     }
   ?>
     <div id="topleft"></div>
@@ -92,7 +90,7 @@
                 <input type="text" name="username" /> <br />
                 <input type="hidden" name="score" id="hiddenScore"/>
                 <input type="submit" name="submit" value="Bestätigen" />
-                <button id="auslesenButton">Tabelle anzeigen</button>
+                 <input type="submit" name="auslesen" value="Tabelle anzeigen" />
             </form>
             <button id="start">Erneut Spielen</button>
             <button id="probutton" onclick="toggleGrid()">Grid an/aus schalten</button>
@@ -377,12 +375,6 @@
                 
                 main();
             });
-        });
-        var auslesenButton = document.getElementById("auslesenButton");
-        var highscoreTable = document.getElementById("highscoreTable");
-    
-        auslesenButton.addEventListener("click", function(event) {
-            highscoreTable.style.display = "block";
         });
     </script>
 </body>
