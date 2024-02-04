@@ -298,7 +298,7 @@
                     else {
                         blacksnake()
                     };
-                }, 1200/snake.length);
+                }, 600/snake.length);
             };
             
             function gameEnd2(){
@@ -306,7 +306,7 @@
                 var opacity = 1;
                 var intervalId = setInterval(function() {
                     if (opacity > 0) {
-                        opacity -= 0.003; // Adjust the decrement value for speed
+                        opacity -= 0.03; // Adjust the decrement value for speed
                         canvas.style.opacity = opacity;
                     } 
                     else {
