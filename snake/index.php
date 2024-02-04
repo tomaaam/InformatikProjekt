@@ -62,18 +62,19 @@
     }
       
     if (isset($_POST['auslesen'])) {
+        $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s2 ORDER BY SCORE DESC");
         
-      $db_res = runSQL("SELECT USERNAME, SCORE, DATE FROM s2 ORDER BY SCORE DESC");
-      
-      echo('<table>');
-      while($row = mysqli_fetch_array($db_res)) {
-        echo('<tr>');
-        echo('<td>' . $row['USERNAME'] . '</td>');
-        echo('<td>' . $row['SCORE'] . '</td>');
-        echo('<td>' . $row['DATE'] . '</td>');
-        echo('</tr>');
-      }
-      echo('</table>');
+        echo('<div id="highscoreTable" style="display:none;">');
+        echo('<table>');
+        while ($row = mysqli_fetch_array($db_res)) {
+            echo('<tr>');
+            echo('<td>' . $row['USERNAME'] . '</td>');
+            echo('<td>' . $row['SCORE'] . '</td>');
+            echo('<td>' . $row['DATE'] . '</td>');
+            echo('</tr>');
+        }
+        echo('</table>');
+        echo('</div>');
     }
   ?>
     <div id="topleft"></div>
@@ -91,10 +92,10 @@
                 <input type="text" name="username" /> <br />
                 <input type="hidden" name="score" id="hiddenScore"/>
                 <input type="submit" name="submit" value="Bestätigen" />
-                <input type="submit" name="auslesen" value="Tabelle anzeigen" />
+                <button id="auslesenButton">Tabelle anzeigen</button>
             </form>
             <button id="start">Erneut Spielen</button>
-            <button id="probutton" onclick="toggleGrid()">Grid einschalten (pro modus)</button>
+            <button id="probutton" onclick="toggleGrid()">Grid an/aus schalten</button>
         </div>
         <div id="scoreanzeige">
             <div>Score: </div>
@@ -117,7 +118,12 @@
             isGridVisible = !isGridVisible;
             clearCanvas(); // Clear Canvas, um das Grid zu aktualisieren
         }
-
+        var auslesenButton = document.getElementById("auslesenButton");
+        var highscoreTable = document.getElementById("highscoreTable");
+    
+        auslesenButton.addEventListener("click", function(event) {
+            highscoreTable.style.display = "block";
+        });
         // Funktion zum Zeichnen des Canvas mit oder ohne Grid
         function clearCanvas() {
             // Setze die Hintergrundfarbe auf Weiß
