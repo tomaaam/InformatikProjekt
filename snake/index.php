@@ -298,7 +298,7 @@
                     else {
                         blacksnake()
                     };
-                }, 1200/snake.length);
+                }, 800/snake.length);
             };
             
             function gameEnd2(){
