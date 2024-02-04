@@ -118,12 +118,7 @@
             isGridVisible = !isGridVisible;
             clearCanvas(); // Clear Canvas, um das Grid zu aktualisieren
         }
-        var auslesenButton = document.getElementById("auslesenButton");
-        var highscoreTable = document.getElementById("highscoreTable");
-    
-        auslesenButton.addEventListener("click", function(event) {
-            highscoreTable.style.display = "block";
-        });
+
         // Funktion zum Zeichnen des Canvas mit oder ohne Grid
         function clearCanvas() {
             // Setze die Hintergrundfarbe auf Weiß
@@ -382,6 +377,12 @@
                 
                 main();
             });
+        });
+        var auslesenButton = document.getElementById("auslesenButton");
+        var highscoreTable = document.getElementById("highscoreTable");
+    
+        auslesenButton.addEventListener("click", function(event) {
+            highscoreTable.style.display = "block";
         });
     </script>
 </body>
