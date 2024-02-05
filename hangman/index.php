@@ -99,7 +99,7 @@
 
     // Überprüfen, ob das Spiel bereits vorbei ist
     if (remainingAttempts === 0 || !displayWord().includes("_")) {
-      feedbackElement.innerText = "Das Spiel ist vorbei!🖕";
+      feedbackElement.innerText = "Das Spiel ist vorbei!👍";
       return;
     }
 
@@ -110,7 +110,7 @@
     }
     // Überprüfen, ob die Eingabe ein einzelner Buchstabe ist
     if (!/^[a-zA-Z]$/.test(guessedLetter)) {
-      feedbackElement.innerText = "Bitte gib einen einzelnen Buchstaben ein🖕";
+      feedbackElement.innerText = "Bitte gib einen einzelnen Buchstaben ein";
       return;
   }
     // Hinzufügen des Buchstabens zu den geratenen Buchstaben
