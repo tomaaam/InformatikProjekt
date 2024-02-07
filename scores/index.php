@@ -36,12 +36,17 @@ function getTopScores($game) {
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-// Display top 5 scores for each game
-$games = ['s1', 's2', 's5'];
+// Game names
+$gameNames = [
+    's1' => 'Game 1',
+    's2' => 'Game 2',
+    's5' => 'Game 5'
+];
 
-foreach ($games as $game) {
+// Display top 5 scores for each game
+foreach ($gameNames as $game => $gameName) {
     $scores = getTopScores($game);
-    echo "<h3>Top 5 Scores for Game $game</h3>";
+    echo "<h3>Top 5 Scores for $gameName</h3>";
     if (count($scores) > 0) {
         echo "<table>";
         echo "<tr><th>Rank</th><th>Username</th><th>Score</th></tr>";
@@ -56,7 +61,7 @@ foreach ($games as $game) {
         }
         echo "</table>";
     } else {
-        echo "<p>No scores yet for Game $game</p>";
+        echo "<p>No scores yet for $gameName</p>";
     }
 }
 
