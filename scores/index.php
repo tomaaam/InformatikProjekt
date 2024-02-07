@@ -22,7 +22,7 @@
 </head>
 <body>
 
-<h2>Top 5 Scores for Each Game</h2>
+<h2>✨Highscores✨</h2>
 
 <?php
 // Include the database connector file
