@@ -1,3 +1,38 @@
+<?php
+// Include the connector.php file
+include '../connector.php';
+
+// Function to retrieve top 5 scores from a specific game
+function getTopScores($game, $db_link) {
+    $sql = "SELECT USERNAME, SCORE FROM $game ORDER BY SCORE DESC LIMIT 5";
+    $result = mysqli_query($db_link, $sql);
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+// Display top 5 scores for a specific game
+if(isset($_GET['game'])) {
+    $game = $_GET['game'];
+    $scores = getTopScores($game, $db_link);
+    if (count($scores) > 0) {
+        echo "<table id='$game'>";
+        echo "<tr><th>Rank</th><th>Username</th><th>Score</th></tr>";
+        $rank = 1;
+        foreach ($scores as $score) {
+            echo "<tr>";
+            echo "<td>$rank</td>";
+            echo "<td>{$score['USERNAME']}</td>";
+            echo "<td>{$score['SCORE']}</td>";
+            echo "</tr>";
+            $rank++;
+        }
+        echo "</table>";
+    } else {
+        echo "<p>No scores yet for Game $game</p>";
+    }
+    exit; // Stop execution after fetching scores
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,42 +60,16 @@
 <h2>Top 5 Scores for Each Game</h2>
 
 <?php
-// Include the connector.php file
-include '../connector.php';
-
-// Function to retrieve top 5 scores from a specific game
-function getTopScores($game, $db_link) {
-    $sql = "SELECT USERNAME, SCORE FROM $game ORDER BY SCORE DESC LIMIT 5";
-    $result = mysqli_query($db_link, $sql);
-    return mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
-
 // Display top 5 scores for each game
 $games = array(
     "Game 1" => "s1",
     "Game 2" => "s2",
-    "Game 3" => "s5"
+    "Game 3" => "s3"
 );
 
 foreach ($games as $gameName => $gameTable) {
-    $scores = getTopScores($gameTable, $db_link);
     echo "<h3>Top 5 Scores for $gameName</h3>";
-    if (count($scores) > 0) {
-        echo "<table id='$gameTable'>";
-        echo "<tr><th>Rank</th><th>Username</th><th>Score</th></tr>";
-        $rank = 1;
-        foreach ($scores as $score) {
-            echo "<tr>";
-            echo "<td>$rank</td>";
-            echo "<td>{$score['USERNAME']}</td>";
-            echo "<td>{$score['SCORE']}</td>";
-            echo "</tr>";
-            $rank++;
-        }
-        echo "</table>";
-    } else {
-        echo "<p>No scores yet for $gameName</p>";
-    }
+    echo "<div id='$gameTable'></div>";
 }
 ?>
 
@@ -85,7 +94,10 @@ function fetchScores(game) {
 }
 
 // Call updateScores function every 15 seconds
-setInterval(updateScores, 15000);
+setInterval(updateScores, 3000);
+
+// Initial call to update scores
+updateScores();
 </script>
 
 </body>
