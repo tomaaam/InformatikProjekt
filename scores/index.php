@@ -37,7 +37,7 @@ function getTopScores($game) {
 }
 
 // Display top 5 scores for each game
-$games = ['s1', 's2', 's3'];
+$games = ['s1', 's2', 's5'];
 
 foreach ($games as $game) {
     $scores = getTopScores($game);
