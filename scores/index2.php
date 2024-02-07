@@ -9,7 +9,7 @@
             border-collapse: collapse;
             width: 100%;
             margin: 0 auto;
-            border: 2px solid #bbb; /* Outer table border color */
+            border-spacing: 5px; /* Reduce gap between tables */
         }
         .inner-table {
             border-collapse: collapse;
@@ -32,7 +32,7 @@
 
 <?php
 // Include the connector.php file
-include '../connector.php';
+include 'connector.php';
 
 // Function to retrieve top 10 scores from a specific game
 function getTopScores($game, $db_link) {
@@ -45,33 +45,40 @@ function getTopScores($game, $db_link) {
 $games = array(
     "Game 1" => "s1",
     "Game 2" => "s2",
-    "Game 3" => "s5"
+    "Game 3" => "s3"
 );
 
 foreach ($games as $gameName => $gameTable) {
     echo "<h3>Top 10 Scores for $gameName</h3>";
     echo "<table class='outer-table'><tr><td>";
+    
+    // First inner table
+    echo "<table class='inner-table'>";
+    echo "<tr><th>Rank</th><th>Username</th><th>Score</th></tr>";
     $scores = getTopScores($gameTable, $db_link);
-    if (count($scores) > 0) {
-        echo "<table class='inner-table'>";
-        echo "<tr><th>Rank</th><th>Username</th><th>Score</th></tr>";
-        $rank = 1;
-        foreach ($scores as $score) {
-            if ($rank == 6) { // Start the second table after 5 scores
-                echo "</table></td><td><table class='inner-table'>";
-                echo "<tr><th>Rank</th><th>Username</th><th>Score</th></tr>";
-            }
-            echo "<tr>";
-            echo "<td>$rank</td>";
-            echo "<td>{$score['USERNAME']}</td>";
-            echo "<td>{$score['SCORE']}</td>";
-            echo "</tr>";
-            $rank++;
-        }
-        echo "</table>";
-    } else {
-        echo "<p>No scores yet for $gameName</p>";
+    $rank = 1;
+    foreach ($scores as $score) {
+        echo "<tr>";
+        echo "<td>$rank</td>";
+        echo "<td>{$score['USERNAME']}</td>";
+        echo "<td>{$score['SCORE']}</td>";
+        echo "</tr>";
+        $rank++;
     }
+    echo "</table>";
+
+    // Second inner table
+    echo "</td><td><table class='inner-table'>";
+    echo "<tr><th>Rank</th><th>Username</th><th>Score</th></tr>";
+    for ($i = $rank; $i <= 10; $i++) {
+        echo "<tr>";
+        echo "<td>$i</td>";
+        echo "<td></td>"; // Empty cell for username
+        echo "<td></td>"; // Empty cell for score
+        echo "</tr>";
+    }
+    echo "</table>";
+
     echo "</td></tr></table>";
 }
 ?>
