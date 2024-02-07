@@ -22,33 +22,31 @@
 </head>
 <body>
 
-<h2>Highscores</h2>
+<h2>Top 5 Scores for Each Game</h2>
 
 <?php
-// Include the database connector file
+// Include the connector.php file
 include '../connector.php';
 
 // Function to retrieve top 5 scores from a specific game
-function getTopScores($game) {
-    global $db_link;
+function getTopScores($game, $db_link) {
     $sql = "SELECT USERNAME, SCORE FROM $game ORDER BY SCORE DESC LIMIT 5";
     $result = mysqli_query($db_link, $sql);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-// Game names
-$gameNames = [
-    's1' => 'Blockjumpinggame',
-    's2' => 'Snake',
-    's5' => 'Tetris'
-];
-
 // Display top 5 scores for each game
-foreach ($gameNames as $game => $gameName) {
-    $scores = getTopScores($game);
+$games = array(
+    "Game 1" => "s1",
+    "Game 2" => "s2",
+    "Game 3" => "s5"
+);
+
+foreach ($games as $gameName => $gameTable) {
+    $scores = getTopScores($gameTable, $db_link);
     echo "<h3>Top 5 Scores for $gameName</h3>";
     if (count($scores) > 0) {
-        echo "<table id='scores_$game'>";
+        echo "<table id='$gameTable'>";
         echo "<tr><th>Rank</th><th>Username</th><th>Score</th></tr>";
         $rank = 1;
         foreach ($scores as $score) {
@@ -67,22 +65,27 @@ foreach ($gameNames as $game => $gameName) {
 ?>
 
 <script>
-// Refresh scores every 5 seconds
-setInterval(function() {
-    <?php foreach ($gameNames as $game => $gameName): ?>
-        fetchScores('<?php echo $game; ?>', '<?php echo $gameName; ?>');
-    <?php endforeach; ?>
-}, 5000);
-
-// Function to fetch and update scores for a specific game
-function fetchScores(game, gameName) {
-    fetch('fetch_scores.php?game=' + game)
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('scores_' + game).innerHTML = data;
-    })
-    .catch(error => console.error('Error:', error));
+// Function to update scores every 15 seconds
+function updateScores() {
+    <?php
+    // Refresh scores for each game
+    foreach ($games as $gameName => $gameTable) {
+        echo "fetchScores('$gameTable');";
+    }
+    ?>
 }
+
+// Function to fetch scores using AJAX
+function fetchScores(game) {
+    fetch('index.php?game=' + game)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById(game).innerHTML = data;
+        });
+}
+
+// Call updateScores function every 15 seconds
+setInterval(updateScores, 15000);
 </script>
 
 </body>
