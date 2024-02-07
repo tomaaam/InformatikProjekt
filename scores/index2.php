@@ -32,7 +32,7 @@
 
 <?php
 // Include the connector.php file
-include 'connector.php';
+include '../connector.php';
 
 // Function to retrieve top 10 scores from a specific game
 function getTopScores($game, $db_link) {
@@ -45,7 +45,7 @@ function getTopScores($game, $db_link) {
 $games = array(
     "Game 1" => "s1",
     "Game 2" => "s2",
-    "Game 3" => "s3"
+    "Game 3" => "s5"
 );
 
 foreach ($games as $gameName => $gameTable) {
