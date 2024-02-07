@@ -25,7 +25,8 @@
 <h2>Top 5 Scores for Each Game</h2>
 
 <?php
-// Assuming your database connection is established and $db_link is available
+// Include the database connector file
+include '../connector.php';
 
 // Function to retrieve top 5 scores from a specific game
 function getTopScores($game) {
@@ -59,10 +60,9 @@ foreach ($games as $game) {
     }
 }
 
-// Close database connection
+// Close database connection (optional)
 mysqli_close($db_link);
 ?>
 
 </body>
 </html>
-
