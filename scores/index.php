@@ -38,9 +38,9 @@ function getTopScores($game) {
 
 // Game names
 $gameNames = [
-    's1' => 'Game 1',
-    's2' => 'Game 2',
-    's5' => 'Game 5'
+    's1' => 'Blockjumpinggame',
+    's2' => 'Snake',
+    's5' => 'Tetris'
 ];
 
 // Display top 5 scores for each game
