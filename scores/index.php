@@ -46,7 +46,7 @@ if(isset($_GET['game'])) {
             margin: 0 auto;
         }
         th, td {
-            border: 1px solid #bbb;
+            border: 1px solid #bbb;/*thicknes and color of the Tables*/
             padding: 8px;
             text-align: left;
         }
@@ -57,7 +57,7 @@ if(isset($_GET['game'])) {
 </head>
 <body>
 
-<h2>Top 5 Scores for Each Game</h2>
+<h2>Highscores</h2>
 
 <?php
 // Display top 5 scores for each game
