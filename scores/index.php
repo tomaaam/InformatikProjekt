@@ -46,7 +46,7 @@ if(isset($_GET['game'])) {
             margin: 0 auto;
         }
         th, td {
-            border: 2px solid #ddd;
+            border: 2px solid #555;
             padding: 8px;
             text-align: left;
         }
