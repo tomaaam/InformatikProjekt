@@ -62,9 +62,9 @@ if(isset($_GET['game'])) {
 <?php
 // Display top 5 scores for each game
 $games = array(
-    "Game 1" => "s1",
-    "Game 2" => "s2",
-    "Game 3" => "s3"
+    "Blockjumpinggame" => "s1",
+    "Snake" => "s2",
+    "Tetris" => "s5"
 );
 
 foreach ($games as $gameName => $gameTable) {
@@ -93,8 +93,8 @@ function fetchScores(game) {
         });
 }
 
-// Call updateScores function every 15 seconds
-setInterval(updateScores, 3000);
+// Call updateScores function every 5 seconds
+setInterval(updateScores, 5000);
 
 // Initial call to update scores
 updateScores();
