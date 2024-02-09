@@ -9,11 +9,6 @@ context.canvas.width = window.innerWidth-(window.innerWidth/12);
 let frameCount = 1;
 let obCount = frameCount;
 
-const fixedTimestep = 1; // milliseconds
-
-// Start the game loop using setInterval
-const gameLoopInterval = setInterval(loop, fixedTimestep);
-
 //velocety the blocks move to the left(for not stopping them instantly tather using friction to come to a "soft" stop)
 let blockvel=0;
 
@@ -331,6 +326,11 @@ function checkCollision(square, obXCoor, obYCoor, size) {
 // Update next frame and loop functions
 nextFrame();
 const loop = function () {
+  // Define the fixed timestep (16 milliseconds for approximately 60 FPS)
+const fixedTimestep = 16; // milliseconds
+
+// Start the game loop using setInterval
+const gameLoopInterval = setInterval(loop, fixedTimestep);
   let onTopOfSquare = false;
   if (controller.up && square.jumping == false) {
       square.yVelocity -= 40;
@@ -483,11 +483,7 @@ if (frameCount % 2 === 0) {
         obXCoors.push(obXCoor); // Add the X coordinate for regular terrain
     }
     obHeights.push(obYCoor);
-  }
-    if (gameEnded) {
-        clearInterval(gameLoopInterval); // Stop the game loop
-        return;
-    }}
+  }}
 
 // Creates the "ground" for each frame
 context.strokeStyle = "#2E2532";
@@ -496,9 +492,11 @@ context.beginPath();
 context.moveTo(0, context.canvas.height-15);
 context.lineTo(context.canvas.width, context.canvas.height-15);
 context.stroke();
+
+  // call update when the browser is ready to draw again
+  window.requestAnimationFrame(loop);
 };
 
 // Start the animation and event listeners
 window.addEventListener("keydown", controller.keyListener)
 window.addEventListener("keyup", controller.keyListener);
-window.requestAnimationFrame(loop);
