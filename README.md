@@ -9,9 +9,9 @@ WICHTIG: Nach diesen Schritten sollte weiterhin eine Fehlermeldung bestehen. Die
 
 Falls ihr euren Code hier hochladen wollt, gerne anschreiben.
 
-- S1: BlockJumpingGame✅
-- S2: Snake✅
+- S1: ✅BlockJumpingGame
+- S2: ✅Snake
 - S3: SuperTikTakToe
 - S4: 2048 
-- S5: Tetris✅
+- S5: ✅Tetris
 - S6: Hangman
