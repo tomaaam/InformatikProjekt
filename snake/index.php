@@ -142,10 +142,6 @@
             }
         }
     }
-
-    // Attach touch event listeners to the document
-    document.addEventListener('touchstart', handleTouchStart, false);
-    document.addEventListener('touchend', handleTouchEnd, false);
         
         //create canvas to draw game on
         var canvas = document.getElementById('gameCanvas');
@@ -389,6 +385,8 @@
         createFood()
         main()
         document.addEventListener("keydown", changeDirection)
+        document.addEventListener('touchstart', handleTouchStart, false);
+        document.addEventListener('touchend', handleTouchEnd, false);
 
         // Warten, bis das DOM vollständig geladen ist
         document.addEventListener("DOMContentLoaded", function() {
