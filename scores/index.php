@@ -32,7 +32,7 @@ if(isset($_GET['game'])) {
     exit; // Stop execution after fetching scores
 }
 ?>
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
