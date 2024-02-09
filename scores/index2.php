@@ -72,13 +72,15 @@ if(isset($_GET['game'])) {
     <?php
     // Display top 5 scores for each game
     $games = array(
-        "Blockjumpinggame" => "s1" => "Top 5 Scores for Blockjumpinggame",
-        "Snake" => "s2" => "Top 5 Scores for Snake",
-        "Tetris" => "s5" => "Top 5 Scores for Tetris",
-        "NewGame" => "s4" => "Top 5 Scores for NewGame" // Add new game
+        "Blockjumpinggame" => array("s1", "Top 5 Scores for Blockjumpinggame"),
+        "Snake" => array("s2", "Top 5 Scores for Snake"),
+        "Tetris" => array("s5", "Top 5 Scores for Tetris"),
+        "NewGame" => array("s4", "Top 5 Scores for NewGame") // Add new game
     );
 
-    foreach ($games as $gameName => $gameTable => $heading) {
+    foreach ($games as $gameName => $gameInfo) {
+        $gameTable = $gameInfo[0];
+        $heading = $gameInfo[1];
         echo "<div id='$gameTable'>";
         echo "<h3>$heading</h3>"; // Add headline for each table
         echo "</div>";
@@ -91,7 +93,8 @@ if(isset($_GET['game'])) {
 function updateScores() {
     <?php
     // Refresh scores for each game
-    foreach ($games as $gameName => $gameTable) {
+    foreach ($games as $gameName => $gameInfo) {
+        $gameTable = $gameInfo[0];
         echo "fetchScores('$gameTable');";
     }
     ?>
