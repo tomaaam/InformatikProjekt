@@ -16,6 +16,10 @@ let blockvel=0;
 let obXCoors = [];
 let obHeights = [];
 
+// Initialize variables for time-based movement
+let lastTime = 0;
+const updateTime = 1000 / 60; // Update every 60 milliseconds (approximately 60 FPS)
+
 // Flag for game end
 let gameEnded = false;
 
@@ -73,6 +77,17 @@ document.body.appendChild(scoreContainer);
 function updateScore() {
   score++;
   scoreContainer.innerText = `Score: ${score}`;
+}
+
+// Function to calculate time-based movement
+function update(time = 0) {
+  const deltaTime = time - lastTime;
+  lastTime = time;
+
+  // Your existing game logic here, but use deltaTime for movement calculations
+  
+  // Call loop function again with requestAnimationFrame
+  requestAnimationFrame(update);
 }
 
 // Show end screen function
@@ -489,7 +504,7 @@ context.lineTo(context.canvas.width, context.canvas.height-15);
 context.stroke();
 
   // call update when the browser is ready to draw again
-  window.requestAnimationFrame(loop);
+  update();
 };
 
 // Start the animation and event listeners
