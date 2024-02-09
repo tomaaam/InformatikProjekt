@@ -18,7 +18,7 @@ let obHeights = [];
 
 // Initialize variables for time-based movement
 let lastTime = 0;
-const desiredFrameRate = 120; // Set your desired frame rate here
+const desiredFrameRate = 10; // Set your desired frame rate here
 const updateTime = 1000 / desiredFrameRate; // Update at the desired frame rate
 
 // Flag for game end
