@@ -143,10 +143,7 @@
         }
     }
 
-    // Get the canvas element
-    const canvas = document.getElementById('gameCanvas');
-
-    // Attach touch event listeners to the canvas element
+    // Attach touch event listeners to the document
     document.addEventListener('touchstart', handleTouchStart, false);
     document.addEventListener('touchend', handleTouchEnd, false);
         
