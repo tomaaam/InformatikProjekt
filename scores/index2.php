@@ -70,19 +70,26 @@ if(isset($_GET['game'])) {
 <!-- Container to arrange tables -->
 <div class="container">
     <?php
-    // Display top 5 scores for each game
-    $games = array(
-        "Blockjumpinggame" => array("s1", "Top 5 Scores for Blockjumpinggame"),
-        "Snake" => array("s2", "Top 5 Scores for Snake"),
-        "Tetris" => array("s5", "Top 5 Scores for Tetris"),
-        "NewGame" => array("s4", "Top 5 Scores for NewGame") // Add new game
+    // Define game headings
+    $gameHeadings = array(
+        "Blockjumpinggame" => "Top 5 Scores for Blockjumpinggame",
+        "Snake" => "Top 5 Scores for Snake",
+        "Tetris" => "Top 5 Scores for Tetris",
+        "NewGame" => "Top 5 Scores for NewGame" // Add new game
     );
 
-    foreach ($games as $gameName => $gameInfo) {
-        $gameTable = $gameInfo[0];
-        $heading = $gameInfo[1];
-        echo "<div id='$gameTable'>";
-        echo "<h3>$heading</h3>"; // Add headline for each table
+    // Display top 5 scores for each game
+    $games = array(
+        "Blockjumpinggame" => "s1",
+        "Snake" => "s2",
+        "Tetris" => "s5",
+        "NewGame" => "s4" // Add new game
+    );
+
+    foreach ($games as $gameName => $gameTable) {
+        echo "<div>";
+        echo "<h3>{$gameHeadings[$gameName]}</h3>"; // Add headline for each table
+        echo "<div id='$gameTable'></div>";
         echo "</div>";
     }
     ?>
@@ -93,8 +100,7 @@ if(isset($_GET['game'])) {
 function updateScores() {
     <?php
     // Refresh scores for each game
-    foreach ($games as $gameName => $gameInfo) {
-        $gameTable = $gameInfo[0];
+    foreach ($games as $gameName => $gameTable) {
         echo "fetchScores('$gameTable');";
     }
     ?>
@@ -102,7 +108,7 @@ function updateScores() {
 
 // Function to fetch scores using AJAX
 function fetchScores(game) {
-    fetch('index.php?game=' + game)
+    fetch('index2.php?game=' + game)
         .then(response => response.text())
         .then(data => {
             document.getElementById(game).innerHTML = data;
