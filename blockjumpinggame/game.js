@@ -18,7 +18,8 @@ let obHeights = [];
 
 // Initialize variables for time-based movement
 let lastTime = 0;
-const updateTime = 1000 / 10; // Update every 60 milliseconds (approximately 60 FPS)
+const desiredFrameRate = 120; // Set your desired frame rate here
+const updateTime = 1000 / desiredFrameRate; // Update at the desired frame rate
 
 // Flag for game end
 let gameEnded = false;
