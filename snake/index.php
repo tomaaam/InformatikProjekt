@@ -103,45 +103,53 @@
     </div>
 
     <script>
-    // Variables to store touch start coordinates
-    let touchStartX = 0;
-    let touchStartY = 0;
+    // Variables to track touch position
+let xDown = null;                                                        
+let yDown = null;
 
-    // Function to handle touch start event
-    function handleTouchStart(event) {
-        touchStartX = event.touches[0].clientX;
-        touchStartY = event.touches[0].clientY;
+// Handle touch start event
+function handleTouchStart(evt) {                                         
+    xDown = evt.touches[0].clientX;                                      
+    yDown = evt.touches[0].clientY;                                      
+}; 
+
+// Handle touch move event
+function handleTouchMove(evt) {
+    if (!xDown || !yDown) {
+        return;
     }
 
-    // Function to handle touch end event
-    function handleTouchEnd(event) {
-        const touchEndX = event.changedTouches[0].clientX;
-        const touchEndY = event.changedTouches[0].clientY;
+    let xUp = evt.touches[0].clientX;
+    let yUp = evt.touches[0].clientY;
 
-        const deltaX = touchEndX - touchStartX;
-        const deltaY = touchEndY - touchStartY;
+    let xDiff = xDown - xUp;
+    let yDiff = yDown - yUp;
 
-        // Determine the direction of the swipe
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            // Horizontal swipe
-            if (deltaX > 0) {
-                // Swipe right
-                changeDirection({ keyCode: 39 }); // Right arrow key
-            } else {
-                // Swipe left
-                changeDirection({ keyCode: 37 }); // Left arrow key
-            }
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+        if (xDiff > 0) {
+            // Swipe left
+                dx = -10;
+                dy = 0;
         } else {
-            // Vertical swipe
-            if (deltaY > 0) {
-                // Swipe down
-                changeDirection({ keyCode: 40 }); // Down arrow key
-            } else {
-                // Swipe up
-                changeDirection({ keyCode: 38 }); // Up arrow key
-            }
+            // Swipe right
+                dx = 10;
+                dy = 0;
         }
+    } else {
+        if (yDiff > 0) {
+            // Swipe up
+                dx = 0;
+                dy = -10;
+        } else { 
+            // Swipe down
+                dx = 0;
+                dy = 10;
+        }                                                                 
     }
+    // Reset touch position variables
+    xDown = null;
+    yDown = null;                                             
+};
         
         //create canvas to draw game on
         var canvas = document.getElementById('gameCanvas');
@@ -385,8 +393,8 @@
         createFood()
         main()
         document.addEventListener("keydown", changeDirection)
-        document.addEventListener('touchstart', handleTouchStart);
-        document.addEventListener('touchend', handleTouchEnd);
+        document.addEventListener('touchstart', handleTouchStart, false);        
+        document.addEventListener('touchmove', handleTouchMove, false);
 
         // Warten, bis das DOM vollständig geladen ist
         document.addEventListener("DOMContentLoaded", function() {
