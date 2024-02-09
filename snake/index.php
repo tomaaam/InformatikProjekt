@@ -103,7 +103,7 @@
     </div>
 
     <script>
-            // Variables to store touch start coordinates
+    // Variables to store touch start coordinates
     let touchStartX = 0;
     let touchStartY = 0;
 
@@ -126,19 +126,19 @@
             // Horizontal swipe
             if (deltaX > 0) {
                 // Swipe right
-                changeDirection({ keyCode: 39 }); // Simulate right arrow key press
+                changeDirection({ keyCode: 39 }); // Right arrow key
             } else {
                 // Swipe left
-                changeDirection({ keyCode: 37 }); // Simulate left arrow key press
+                changeDirection({ keyCode: 37 }); // Left arrow key
             }
         } else {
             // Vertical swipe
             if (deltaY > 0) {
                 // Swipe down
-                changeDirection({ keyCode: 40 }); // Simulate down arrow key press
+                changeDirection({ keyCode: 40 }); // Down arrow key
             } else {
                 // Swipe up
-                changeDirection({ keyCode: 38 }); // Simulate up arrow key press
+                changeDirection({ keyCode: 38 }); // Up arrow key
             }
         }
     }
@@ -146,7 +146,7 @@
     // Attach touch event listeners to the document
     document.addEventListener('touchstart', handleTouchStart, false);
     document.addEventListener('touchend', handleTouchEnd, false);
-
+        
         //create canvas to draw game on
         var canvas = document.getElementById('gameCanvas');
         var ctx = canvas.getContext("2d");
