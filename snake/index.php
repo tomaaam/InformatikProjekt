@@ -345,7 +345,6 @@
         }
         createFood()
         main()
-        // Variable to store touch start coordinates
 // Variable to store touch start coordinates
 let touchStartX = 0;
 let touchStartY = 0;
@@ -392,7 +391,13 @@ document.addEventListener('touchend', function(event) {
 });
 
 // Event listener for arrow key controls
-document.addEventListener("keydown", changeDirection);
+document.addEventListener("keydown", function(event) {
+    if ([37, 38, 39, 40].indexOf(event.keyCode) > -1) {
+        event.preventDefault();
+    }
+    changeDirection(event);
+});
+
 
 
         // Warten, bis das DOM vollständig geladen ist
