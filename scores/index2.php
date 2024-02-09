@@ -75,7 +75,7 @@ if(isset($_GET['game'])) {
         "Blockjumpinggame" => "Top 5 Scores for Blockjumpinggame",
         "Snake" => "Top 5 Scores for Snake",
         "Tetris" => "Top 5 Scores for Tetris",
-        "NewGame" => "Top 5 Scores for NewGame" // Add new game
+        "2048" => "Top 5 Scores for 2048" // Add new game
     );
 
     // Display top 5 scores for each game
