@@ -214,3 +214,51 @@ function showEndScreen() {
     document.getElementById("finalScore").innerText = score;
     document.getElementById("hiddenScore").value = score;
 }
+// Add touch event listeners
+document.addEventListener('touchstart', handleTouchStart, false);        
+document.addEventListener('touchmove', handleTouchMove, false);
+
+// Variables to track touch position
+let xDown = null;                                                        
+let yDown = null;
+
+// Handle touch start event
+function handleTouchStart(evt) {                                         
+    xDown = evt.touches[0].clientX;                                      
+    yDown = evt.touches[0].clientY;                                      
+}; 
+
+// Handle touch move event
+function handleTouchMove(evt) {
+    if (!xDown || !yDown) {
+        return;
+    }
+
+    let xUp = evt.touches[0].clientX;
+    let yUp = evt.touches[0].clientY;
+
+    let xDiff = xDown - xUp;
+    let yDiff = yDown - yUp;
+
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+        if (xDiff > 0) {
+            // Swipe left
+            slideLeft();
+        } else {
+            // Swipe right
+            slideRight();
+        }
+    } else {
+        if (yDiff > 0) {
+            // Swipe up
+            slideUp();
+        } else { 
+            // Swipe down
+            slideDown();
+        }                                                                 
+    }
+    // Reset touch position variables
+    xDown = null;
+    yDown = null;                                             
+};
+
