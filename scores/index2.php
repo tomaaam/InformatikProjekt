@@ -72,14 +72,16 @@ if(isset($_GET['game'])) {
     <?php
     // Display top 5 scores for each game
     $games = array(
-        "Blockjumpinggame" => "s1",
-        "Snake" => "s2",
-        "Tetris" => "s5",
-        "NewGame" => "s4" // Add new game
+        "Blockjumpinggame" => "s1" => "Top 5 Scores for Blockjumpinggame",
+        "Snake" => "s2" => "Top 5 Scores for Snake",
+        "Tetris" => "s5" => "Top 5 Scores for Tetris",
+        "NewGame" => "s4" => "Top 5 Scores for NewGame" // Add new game
     );
 
-    foreach ($games as $gameName => $gameTable) {
-        echo "<div id='$gameTable'></div>";
+    foreach ($games as $gameName => $gameTable => $heading) {
+        echo "<div id='$gameTable'>";
+        echo "<h3>$heading</h3>"; // Add headline for each table
+        echo "</div>";
     }
     ?>
 </div>
