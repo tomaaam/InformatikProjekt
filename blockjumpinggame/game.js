@@ -511,4 +511,4 @@ context.stroke();
 // Start the animation and event listeners
 window.addEventListener("keydown", controller.keyListener)
 window.addEventListener("keyup", controller.keyListener);
-window.requestAnimationFrame(loop);
+update();
