@@ -345,7 +345,47 @@
         }
         createFood()
         main()
-        document.addEventListener("keydown", changeDirection)
+        // Variable to store touch start coordinates
+let touchStartX = 0;
+let touchStartY = 0;
+
+// Event listener for touch start
+document.addEventListener('touchstart', function(event) {
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
+});
+
+// Event listener for touch end
+document.addEventListener('touchend', function(event) {
+    const touchEndX = event.changedTouches[0].clientX;
+    const touchEndY = event.changedTouches[0].clientY;
+
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Swipe is horizontal
+        if (deltaX > 0) {
+            // Swipe right
+            changeDirection({ keyCode: 39 }); // Right arrow key code
+        } else {
+            // Swipe left
+            changeDirection({ keyCode: 37 }); // Left arrow key code
+        }
+    } else {
+        // Swipe is vertical
+        if (deltaY > 0) {
+            // Swipe down
+            changeDirection({ keyCode: 40 }); // Down arrow key code
+        } else {
+            // Swipe up
+            changeDirection({ keyCode: 38 }); // Up arrow key code
+        }
+    }
+});
+
+// Event listener for arrow key controls
+document.addEventListener("keydown", changeDirection);
 
         // Warten, bis das DOM vollständig geladen ist
         document.addEventListener("DOMContentLoaded", function() {
