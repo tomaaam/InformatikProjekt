@@ -4,7 +4,7 @@ include '../connector.php';
 
 // Function to retrieve top 5 scores from a specific game
 function getTopScores($game, $db_link) {
-    $sql = "SELECT USERNAME, SCORE FROM $game ORDER BY SCORE DESC LIMIT 5";
+    $sql = "SELECT USERNAME, SCORE FROM $game ORDER BY SCORE DESC LIMIT 3";
     $result = mysqli_query($db_link, $sql);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
