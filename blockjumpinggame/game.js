@@ -18,7 +18,7 @@ let obHeights = [];
 
 // Initialize variables for time-based movement
 let lastTime = 0;
-const updateTime = 1000 / 60; // Update every 60 milliseconds (approximately 60 FPS)
+const updateTime = 1000 / 10; // Update every 60 milliseconds (approximately 60 FPS)
 
 // Flag for game end
 let gameEnded = false;
