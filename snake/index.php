@@ -143,9 +143,12 @@
         }
     }
 
-    // Attach touch event listeners to the document
-    document.addEventListener('touchstart', handleTouchStart, false);
-    document.addEventListener('touchend', handleTouchEnd, false);
+    // Get the canvas element
+    const canvas = document.getElementById('gameCanvas');
+
+    // Attach touch event listeners to the canvas element
+    canvas.addEventListener('touchstart', handleTouchStart, false);
+    canvas.addEventListener('touchend', handleTouchEnd, false);
         
         //create canvas to draw game on
         var canvas = document.getElementById('gameCanvas');
