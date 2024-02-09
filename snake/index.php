@@ -400,6 +400,7 @@ document.addEventListener("keydown", function(event) {
 
 
 
+
         // Warten, bis das DOM vollständig geladen ist
         document.addEventListener("DOMContentLoaded", function() {
 
