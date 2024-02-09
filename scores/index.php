@@ -38,7 +38,6 @@ if(isset($_GET['game'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top Scores</title>
         <style>
             table {
                 border-collapse: collapse;
@@ -72,7 +71,7 @@ $games = array(
 );
 
 foreach ($games as $gameName => $gameTable) {
-    echo "<h3>Top 5 Scores for $gameName</h3>";
+    echo "<h3>Top 3 Scores for $gameName</h3>";
     echo "<div id='$gameTable'></div>";
 }
 ?>
