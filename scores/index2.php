@@ -83,7 +83,7 @@ if(isset($_GET['game'])) {
         "Blockjumpinggame" => "s1",
         "Snake" => "s2",
         "Tetris" => "s5",
-        "NewGame" => "s4" // Add new game
+        "2048" => "s4" // Add new game
     );
 
     foreach ($games as $gameName => $gameTable) {
