@@ -103,6 +103,49 @@
     </div>
 
     <script>
+            // Variables to store touch start coordinates
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    // Function to handle touch start event
+    function handleTouchStart(event) {
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+    }
+
+    // Function to handle touch end event
+    function handleTouchEnd(event) {
+        const touchEndX = event.changedTouches[0].clientX;
+        const touchEndY = event.changedTouches[0].clientY;
+
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+
+        // Determine the direction of the swipe
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            // Horizontal swipe
+            if (deltaX > 0) {
+                // Swipe right
+                changeDirection({ keyCode: 39 }); // Simulate right arrow key press
+            } else {
+                // Swipe left
+                changeDirection({ keyCode: 37 }); // Simulate left arrow key press
+            }
+        } else {
+            // Vertical swipe
+            if (deltaY > 0) {
+                // Swipe down
+                changeDirection({ keyCode: 40 }); // Simulate down arrow key press
+            } else {
+                // Swipe up
+                changeDirection({ keyCode: 38 }); // Simulate up arrow key press
+            }
+        }
+    }
+
+    // Attach touch event listeners to the document
+    document.addEventListener('touchstart', handleTouchStart, false);
+    document.addEventListener('touchend', handleTouchEnd, false);
 
         //create canvas to draw game on
         var canvas = document.getElementById('gameCanvas');
@@ -345,61 +388,7 @@
         }
         createFood()
         main()
-// Variable to store touch start coordinates
-let touchStartX = 0;
-let touchStartY = 0;
-
-// Event listener for touch start
-document.addEventListener('touchstart', function(event) {
-    touchStartX = event.touches[0].clientX;
-    touchStartY = event.touches[0].clientY;
-});
-
-// Event listener for touch end
-document.addEventListener('touchend', function(event) {
-    const touchEndX = event.changedTouches[0].clientX;
-    const touchEndY = event.changedTouches[0].clientY;
-
-    const deltaX = touchEndX - touchStartX;
-    const deltaY = touchEndY - touchStartY;
-
-    const sensitivity = 50; // Adjust sensitivity as needed
-
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        // Horizontal swipe
-        if (Math.abs(deltaX) > sensitivity) {
-            if (deltaX > 0) {
-                // Swipe right
-                changeDirection({ keyCode: 39 }); // Right arrow key code
-            } else {
-                // Swipe left
-                changeDirection({ keyCode: 37 }); // Left arrow key code
-            }
-        }
-    } else {
-        // Vertical swipe
-        if (Math.abs(deltaY) > sensitivity) {
-            if (deltaY > 0) {
-                // Swipe down
-                changeDirection({ keyCode: 40 }); // Down arrow key code
-            } else {
-                // Swipe up
-                changeDirection({ keyCode: 38 }); // Up arrow key code
-            }
-        }
-    }
-});
-
-// Event listener for arrow key controls
-document.addEventListener("keydown", function(event) {
-    if ([37, 38, 39, 40].indexOf(event.keyCode) > -1) {
-        event.preventDefault();
-    }
-    changeDirection(event);
-});
-
-
-
+        document.addEventListener("keydown", changeDirection)
 
         // Warten, bis das DOM vollständig geladen ist
         document.addEventListener("DOMContentLoaded", function() {
