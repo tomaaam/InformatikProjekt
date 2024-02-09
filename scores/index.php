@@ -46,6 +46,8 @@ if(isset($_GET['game'])) {
                 max-width: 800px; /* Limit maximum table width to 800px */
                 margin: 0 auto;
                 font-size: 1.2em; /* Set default font size */
+                max-height: 90vh; /* Limit maximum table height to 90% of the viewport height */
+                overflow-y: auto; /* Add vertical scrollbar if the table exceeds the viewport height */
             }
             th, td {
                 border: 1px solid #bbb;
@@ -54,13 +56,6 @@ if(isset($_GET['game'])) {
             }
             th {
                 background-color: #f2f2f2;
-            }
-        
-            /* Media query for smaller screens */
-            @media screen and (max-width: 600px) {
-                table {
-                    font-size: 1em; /* Decrease font size for smaller screens */
-                }
             }
         </style>
 </head>
