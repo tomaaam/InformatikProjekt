@@ -244,17 +244,21 @@ function handleTouchMove(evt) {
         if (xDiff > 0) {
             // Swipe left
             slideLeft();
+            setTwo();
         } else {
             // Swipe right
             slideRight();
+            setTwo();
         }
     } else {
         if (yDiff > 0) {
             // Swipe up
             slideUp();
+            setTwo();
         } else { 
             // Swipe down
             slideDown();
+            setTwo();
         }                                                                 
     }
     // Reset touch position variables
