@@ -39,23 +39,30 @@ if(isset($_GET['game'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top Scores</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 90%; /* Set table width to 90% of the screen width */
-            max-width: 800px; /* Limit maximum table width to 800px */
-            margin: 0 auto;
-        }
-        th, td {
-            border: 1px solid #bbb;/*thicknes and color of the Tables*/
-            padding: 8px;
-            text-align: left;
-            font-size: 1.2em; /* Set font size to 1.2em */
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 90%; /* Set table width to 90% of the screen width */
+                max-width: 800px; /* Limit maximum table width to 800px */
+                margin: 0 auto;
+                font-size: 1.2em; /* Set default font size */
+            }
+            th, td {
+                border: 1px solid #bbb;
+                padding: 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+        
+            /* Media query for smaller screens */
+            @media screen and (max-width: 600px) {
+                table {
+                    font-size: 1em; /* Decrease font size for smaller screens */
+                }
+            }
+        </style>
 </head>
 <body>
 
