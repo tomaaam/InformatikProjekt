@@ -87,7 +87,7 @@ function update(time = 0) {
   // Your existing game logic here, but use deltaTime for movement calculations
   
   // Call loop function again with requestAnimationFrame
-  requestAnimationFrame(update);
+  requestAnimationFrame(loop);
 }
 
 // Show end screen function
