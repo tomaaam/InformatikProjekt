@@ -346,6 +346,7 @@
         createFood()
         main()
         // Variable to store touch start coordinates
+// Variable to store touch start coordinates
 let touchStartX = 0;
 let touchStartY = 0;
 
@@ -363,29 +364,36 @@ document.addEventListener('touchend', function(event) {
     const deltaX = touchEndX - touchStartX;
     const deltaY = touchEndY - touchStartY;
 
+    const sensitivity = 50; // Adjust sensitivity as needed
+
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        // Swipe is horizontal
-        if (deltaX > 0) {
-            // Swipe right
-            changeDirection({ keyCode: 39 }); // Right arrow key code
-        } else {
-            // Swipe left
-            changeDirection({ keyCode: 37 }); // Left arrow key code
+        // Horizontal swipe
+        if (Math.abs(deltaX) > sensitivity) {
+            if (deltaX > 0) {
+                // Swipe right
+                changeDirection({ keyCode: 39 }); // Right arrow key code
+            } else {
+                // Swipe left
+                changeDirection({ keyCode: 37 }); // Left arrow key code
+            }
         }
     } else {
-        // Swipe is vertical
-        if (deltaY > 0) {
-            // Swipe down
-            changeDirection({ keyCode: 40 }); // Down arrow key code
-        } else {
-            // Swipe up
-            changeDirection({ keyCode: 38 }); // Up arrow key code
+        // Vertical swipe
+        if (Math.abs(deltaY) > sensitivity) {
+            if (deltaY > 0) {
+                // Swipe down
+                changeDirection({ keyCode: 40 }); // Down arrow key code
+            } else {
+                // Swipe up
+                changeDirection({ keyCode: 38 }); // Up arrow key code
+            }
         }
     }
 });
 
 // Event listener for arrow key controls
 document.addEventListener("keydown", changeDirection);
+
 
         // Warten, bis das DOM vollständig geladen ist
         document.addEventListener("DOMContentLoaded", function() {
