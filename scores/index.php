@@ -32,11 +32,12 @@ if(isset($_GET['game'])) {
     exit; // Stop execution after fetching scores
 }
 ?>
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Scores</title>
         <style>
             table {
                 border-collapse: collapse;
@@ -58,8 +59,6 @@ if(isset($_GET['game'])) {
         </style>
 </head>
 <body>
-
-<h2>Highscores</h2>
 
 <?php
 // Display top 5 scores for each game
