@@ -42,13 +42,15 @@ if(isset($_GET['game'])) {
     <style>
         table {
             border-collapse: collapse;
-            width: 80%;
+            width: 90%; /* Set table width to 90% of the screen width */
+            max-width: 800px; /* Limit maximum table width to 800px */
             margin: 0 auto;
         }
         th, td {
             border: 1px solid #bbb;/*thicknes and color of the Tables*/
             padding: 8px;
             text-align: left;
+            font-size: 1.2em; /* Set font size to 1.2em */
         }
         th {
             background-color: #f2f2f2;
