@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Helldivers Tastenkombinationen Üben</title>
     <style>
+        /* Original styles */
         #actionImage {
             width: 200px;
             height: 200px;
@@ -13,31 +14,37 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 20vh; /* Moves the container down by half the viewport height */
+            margin-top: 20vh;
         }
         .arrow {
-            font-family: 'ui-sans-serif', sans-serif; /* Use ui-sans-serif font */
+            font-family: 'ui-sans-serif', sans-serif;
             font-size: 80px;
             margin: 0 20px;
         }
         .action-name {
-            font-size: 40px; /* Increase font size */
-            font-weight: bold; /* Make bold */
-            margin-top: -150px; /* Add top margin */
-            text-align: center; /* Center the text */
+            font-size: 40px;
+            font-weight: bold;
+            margin-top: -150px;
+            text-align: center;
         }
         .green { color: green; }
         .red { color: red; }
+        
+        /* Dark mode */
+        body.dark-mode {
+            background-color: black;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <h1>Übe die Tastenkombinationen für Helldivers</h1>
     <p>Drücke die angezeigten Tasten in der richtigen Reihenfolge.</p>
+    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
     <div id="arrow-container">
     </div>
 
     <script>
-
         const aktionen = [
             { name: "Machine Gun", sequence: ["s", "a", "s", "w", "d"] },
             { name: "Anti-Material Rifle", sequence: ["s", "a", "s", "d", "w", "s"] },
@@ -163,6 +170,10 @@
 
         document.addEventListener('keydown', checkKeyPress);
         showAction();
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
     </script>
 </body>
 </html>
