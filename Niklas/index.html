@@ -6,8 +6,8 @@
     <title>Helldivers Tastenkombinationen Üben</title>
     <style>
         #actionImage {
-            width: 200px; /* Scaled up by 2x */
-            height: 200px; /* Scaled up by 2x */
+            width: 200px;
+            height: 200px;
         }
         #arrow-container {
             display: flex;
@@ -16,9 +16,13 @@
             margin-top: 20vh; /* Moves the container down by half the viewport height */
         }
         .arrow {
-            font-family: "Distro Bats"; /* Use ui-sans-serif font */
+            font-family: 'ui-sans-serif', sans-serif; /* Use ui-sans-serif font */
             font-size: 80px;
             margin: 0 20px;
+        }
+        .action-name {
+            font-size: 40px; /* Increase font size */
+            font-weight: bold; /* Make bold */
         }
         .green { color: green; }
         .red { color: red; }
@@ -54,10 +58,10 @@
             { name: "Gatling Sentry", sequence: ["s", "w", "d", "a", "s"] },
             { name: "Guard Dog", sequence: ["s", "w", "a", "s", "w", "d", "s"] },
         ];
-
+        
         // Randomize the order of actions
         aktionen.sort(() => Math.random() - 0.5);
-        
+
         let aktuelleAktionIndex = 0;
         let aktuelleTastenIndex = 0;
 
@@ -73,13 +77,14 @@
             arrowContainerDiv.classList.add('arrow-container');
 
             const actionImage = document.createElement('img');
-            actionImage.src = aktuelleAktion.name.toLowerCase() + '.png';
+            actionImage.src = aktuelleAktion.name.toLowerCase().replace(/\s+/g, '-') + '.png';
             actionImage.alt = aktuelleAktion.name;
             actionImage.id = 'actionImage';
             arrowContainerDiv.appendChild(actionImage);
 
             const actionNameParagraph = document.createElement('p');
             actionNameParagraph.textContent = aktuelleAktion.name;
+            actionNameParagraph.classList.add('action-name'); // Add action-name class for styling
             arrowContainerDiv.appendChild(actionNameParagraph);
 
             arrowContainer.appendChild(arrowContainerDiv);
