@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helldivers Tastenkombinationen Üben</title>
+    <style>
+        #actionImage {
+            width: 200px; /* Scaled up by 2x */
+            height: 200px; /* Scaled up by 2x */
+        }
+        #arrow-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20vh; /* Moves the container down by half the viewport height */
+        }
+        .arrow {
+            font-family: "Distro Bats"; /* Use ui-sans-serif font */
+            font-size: 80px;
+            margin: 0 20px;
+        }
+        .green { color: green; }
+        .red { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Übe die Tastenkombinationen für Helldivers</h1>
+    <p>Drücke die angezeigten Tasten in der richtigen Reihenfolge.</p>
+    <div id="arrow-container">
+    </div>
+
+    <script>
+        const aktionen = [
+            { name: "Airstrike", sequence: ["w", "w", "d"] },
+            { name: "Turret", sequence: ["w", "s", "a", "d"] },
+            { name: "Tree", sequence: ["w", "a", "s", "d", "a", "w", "d", "s", "a", "s", "d", "d", "s"] }
+        ];
+
+        let aktuelleAktionIndex = 0;
+        let aktuelleTastenIndex = 0;
+
+        const arrowContainer = document.getElementById('arrow-container');
+
+        let mistakeBlinkTimeout;
+
+        function showAction() {
+            const aktuelleAktion = aktionen[aktuelleAktionIndex];
+            arrowContainer.innerHTML = ''; // Clear previous content
+            const arrowContainerDiv = document.createElement('div');
+            arrowContainerDiv.id = 'arrow-container';
+            arrowContainerDiv.classList.add('arrow-container');
+
+            const actionImage = document.createElement('img');
+            actionImage.src = aktuelleAktion.name.toLowerCase() + '.png';
+            actionImage.alt = aktuelleAktion.name;
+            actionImage.id = 'actionImage';
+            arrowContainerDiv.appendChild(actionImage);
+
+            const actionNameParagraph = document.createElement('p');
+            actionNameParagraph.textContent = aktuelleAktion.name;
+            arrowContainerDiv.appendChild(actionNameParagraph);
+
+            arrowContainer.appendChild(arrowContainerDiv);
+
+            setArrowDirection(aktuelleAktion.sequence);
+        }
+
+        function setArrowDirection(sequence) {
+            const arrowUnicodeMap = {
+                'w': '🠉', // ▲ (Thicker arrow)
+                's': '🠋', // ▼ (Thicker arrow)
+                'a': '🠈', // ◄ (Thicker arrow)
+                'd': '🠊'  // ► (Thicker arrow)
+            };
+
+            sequence.forEach(taste => {
+                const arrowDiv = document.createElement('div');
+                arrowDiv.classList.add('arrow');
+                arrowDiv.innerHTML = arrowUnicodeMap[taste];
+                arrowContainer.appendChild(arrowDiv);
+            });
+        }
+
+        function checkKeyPress(event) {
+            const aktuelleTaste = event.key.toLowerCase();
+            const aktuelleAktion = aktionen[aktuelleAktionIndex];
+
+            console.log('Gedrückte Taste:', aktuelleTaste);
+
+            if (aktuelleTaste === aktuelleAktion.sequence[aktuelleTastenIndex]) {
+                // Wenn die richtige Taste gedrückt wird
+                aktuelleTastenIndex++; // Zum nächsten Tastenindex gehen
+                console.log('Richtige Taste gedrückt');
+
+                if (aktuelleTastenIndex === aktuelleAktion.sequence.length) {
+                    // Wenn alle Tasten erfolgreich gedrückt wurden
+                    aktuelleAktionIndex = (aktuelleAktionIndex + 1) % aktionen.length;
+                    aktuelleTastenIndex = 0; // Reset Tastenindex für die nächste Aktion
+                    showAction();
+                }
+            } else {
+                // Wenn eine falsche Taste gedrückt wird
+                aktuelleTastenIndex = 0; // Reset Tastenindex
+                makeArrowsRed(aktuelleAktion.sequence);
+                mistakeBlinkTimeout = setTimeout(() => { showAction(); }, 1000); // Show the correct action after 1 second
+                console.log('Falsche Taste gedrückt');
+            }
+
+            updateArrowState();
+        }
+
+        function makeArrowsRed(sequence) {
+            const arrows = arrowContainer.querySelectorAll('.arrow');
+            arrows.forEach((arrow, index) => {
+                if (index < aktuelleTastenIndex) {
+                    if (sequence[index] !== aktionen[aktuelleAktionIndex].sequence[index]) {
+                        arrow.classList.add('red');
+                    }
+                }
+            });
+        }
+
+        function updateArrowState() {
+            const arrows = arrowContainer.querySelectorAll('.arrow');
+            arrows.forEach((arrow, index) => {
+                if (index < aktuelleTastenIndex) {
+                    arrow.classList.add('green');
+                } else {
+                    arrow.classList.remove('green');
+                    arrow.classList.remove('red');
+                }
+            });
+        }
+
+        document.addEventListener('keydown', checkKeyPress);
+        showAction();
+    </script>
+</body>
+</html>
