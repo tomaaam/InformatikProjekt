@@ -82,6 +82,9 @@
             { name: "EMS Mortar Sentry", sequence: [] }
         ];
 
+        // Randomize the order of actions
+        aktionen.sort(() => Math.random() - 0.5);
+        
         let aktuelleAktionIndex = 0;
         let aktuelleTastenIndex = 0;
 
