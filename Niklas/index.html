@@ -136,29 +136,37 @@
         let settings = JSON.parse(localStorage.getItem('helldivers_settings')) || {};
 
         function showAction() {
+            let enabledActionsCount = aktionen.filter(action => settings[action.name] !== false).length;
+        
+            if (enabledActionsCount < 3) {
+                // If less than three actions are enabled, display an error message
+                alert("Please select at least three actions to play.");
+                return;
+            }
+        
             let aktuelleAktion = getNextEnabledAction();
-
+        
             // If there are no enabled actions, do nothing
             if (!aktuelleAktion) return;
-
+        
             arrowContainer.innerHTML = ''; // Clear previous content
             const arrowContainerDiv = document.createElement('div');
             arrowContainerDiv.id = 'arrow-container';
             arrowContainerDiv.classList.add('arrow-container');
-
+        
             const actionImage = document.createElement('img');
             actionImage.src = aktuelleAktion.name.toLowerCase().replace(/\s+/g, '-') + '.png';
             actionImage.alt = aktuelleAktion.name;
             actionImage.id = 'actionImage';
             arrowContainerDiv.appendChild(actionImage);
-
+        
             const actionNameParagraph = document.createElement('p');
             actionNameParagraph.textContent = aktuelleAktion.name;
             actionNameParagraph.classList.add('action-name'); // Add action-name class for styling
             arrowContainerDiv.appendChild(actionNameParagraph);
-
+        
             arrowContainer.appendChild(arrowContainerDiv);
-
+        
             setArrowDirection(aktuelleAktion.sequence);
         }
 
