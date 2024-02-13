@@ -272,7 +272,6 @@
             for (const [category, stratagems] of Object.entries(categories)) {
                 const categoryHeading = document.createElement('h2');
                 categoryHeading.textContent = category;
-                scrollableMenu.appendChild(categoryHeading);
         
                 // Add a toggle for the whole category
                 const categoryToggle = document.createElement('input');
@@ -293,6 +292,8 @@
                 categoryToggleLabel.textContent = 'Toggle All';
                 categoryHeading.appendChild(categoryToggle);
                 categoryHeading.appendChild(categoryToggleLabel);
+        
+                scrollableMenu.appendChild(categoryHeading);
         
                 stratagems.forEach(stratagem => {
                     const toggle = document.createElement('input');
