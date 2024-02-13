@@ -267,63 +267,83 @@
             scrollableMenu.style.display = scrollableMenu.style.display === 'none' ? 'block' : 'none';
         }
 
-    // Function to create action toggles for each category
-    function createActionToggles() {
-        for (const [category, stratagems] of Object.entries(categories)) {
-            const categoryHeading = document.createElement('h2');
-            categoryHeading.textContent = category;
-            scrollableMenu.appendChild(categoryHeading);
-    
-            stratagems.forEach(stratagem => {
-                const toggle = document.createElement('input');
-                toggle.type = 'checkbox';
-                toggle.id = stratagem.toLowerCase().replace(/\s+/g, '-');
-                toggle.checked = settings[stratagem] === undefined ? true : settings[stratagem];
-                toggle.addEventListener('change', () => {
-                    settings[stratagem] = toggle.checked;
+        // Function to create action toggles for each category
+        function createActionToggles() {
+            for (const [category, stratagems] of Object.entries(categories)) {
+                const categoryHeading = document.createElement('h2');
+                categoryHeading.textContent = category;
+                scrollableMenu.appendChild(categoryHeading);
+        
+                // Add a toggle for the whole category
+                const categoryToggle = document.createElement('input');
+                categoryToggle.type = 'checkbox';
+                categoryToggle.classList.add('category-toggle');
+                categoryToggle.addEventListener('change', () => {
+                    stratagems.forEach(stratagem => {
+                        const toggle = document.getElementById(stratagem.toLowerCase().replace(/\s+/g, '-'));
+                        if (toggle) {
+                            toggle.checked = categoryToggle.checked;
+                            settings[stratagem] = toggle.checked;
+                        }
+                    });
                     localStorage.setItem('helldivers_settings', JSON.stringify(settings));
                     showAction();
                 });
-    
-                const label = document.createElement('label');
-                label.htmlFor = toggle.id;
-                label.textContent = stratagem;
-    
-                const actionToggle = document.createElement('div');
-                actionToggle.classList.add('action-toggle');
-                actionToggle.appendChild(toggle);
-                actionToggle.appendChild(label);
-    
-                scrollableMenu.appendChild(actionToggle);
+                const categoryToggleLabel = document.createElement('label');
+                categoryToggleLabel.textContent = 'Toggle All';
+                categoryHeading.appendChild(categoryToggle);
+                categoryHeading.appendChild(categoryToggleLabel);
+        
+                stratagems.forEach(stratagem => {
+                    const toggle = document.createElement('input');
+                    toggle.type = 'checkbox';
+                    toggle.id = stratagem.toLowerCase().replace(/\s+/g, '-');
+                    toggle.checked = settings[stratagem] === undefined ? true : settings[stratagem];
+                    toggle.addEventListener('change', () => {
+                        settings[stratagem] = toggle.checked;
+                        localStorage.setItem('helldivers_settings', JSON.stringify(settings));
+                        showAction();
+                    });
+        
+                    const label = document.createElement('label');
+                    label.htmlFor = toggle.id;
+                    label.textContent = stratagem;
+        
+                    const actionToggle = document.createElement('div');
+                    actionToggle.classList.add('action-toggle');
+                    actionToggle.appendChild(toggle);
+                    actionToggle.appendChild(label);
+        
+                    scrollableMenu.appendChild(actionToggle);
+                });
+            }
+        
+            // Toggle to enable/disable all actions
+            const toggleAllDiv = document.createElement('div');
+            toggleAllDiv.classList.add('action-toggle');
+            const toggleAll = document.createElement('input');
+            toggleAll.type = 'checkbox';
+            toggleAll.id = 'toggle-all';
+            toggleAll.checked = true; // By default, all actions are enabled
+            toggleAll.addEventListener('change', () => {
+                const toggles = document.querySelectorAll('.action-toggle input[type="checkbox"]');
+                toggles.forEach(toggle => {
+                    toggle.checked = toggleAll.checked;
+                    const stratagem = toggle.id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()); // Convert from kebab-case to Camel Case
+                    settings[stratagem] = toggle.checked;
+                });
+                localStorage.setItem('helldivers_settings', JSON.stringify(settings));
+                showAction();
             });
+            const toggleAllLabel = document.createElement('label');
+            toggleAllLabel.htmlFor = 'toggle-all';
+            toggleAllLabel.textContent = 'Toggle All Actions';
+            toggleAllDiv.appendChild(toggleAll);
+            toggleAllDiv.appendChild(toggleAllLabel);
+            scrollableMenu.appendChild(toggleAllDiv);
         }
-    
-        // Toggle to enable/disable all actions
-        const toggleAllDiv = document.createElement('div');
-        toggleAllDiv.classList.add('action-toggle');
-        const toggleAll = document.createElement('input');
-        toggleAll.type = 'checkbox';
-        toggleAll.id = 'toggle-all';
-        toggleAll.checked = true; // By default, all actions are enabled
-        toggleAll.addEventListener('change', () => {
-            const toggles = document.querySelectorAll('.action-toggle input[type="checkbox"]');
-            toggles.forEach(toggle => {
-                toggle.checked = toggleAll.checked;
-                const stratagem = toggle.id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()); // Convert from kebab-case to Camel Case
-                settings[stratagem] = toggle.checked;
-            });
-            localStorage.setItem('helldivers_settings', JSON.stringify(settings));
-            showAction();
-        });
-        const toggleAllLabel = document.createElement('label');
-        toggleAllLabel.htmlFor = 'toggle-all';
-        toggleAllLabel.textContent = 'Toggle All Actions';
-        toggleAllDiv.appendChild(toggleAll);
-        toggleAllDiv.appendChild(toggleAllLabel);
-        scrollableMenu.appendChild(toggleAllDiv);
-    }
-    
-    createActionToggles();
+        
+        createActionToggles();
 
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
