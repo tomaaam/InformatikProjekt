@@ -198,9 +198,12 @@
 
         function checkKeyPress(event) {
             const aktuelleTaste = event.key.toLowerCase();
-            const aktuelleAktion = aktionen[aktuelleAktionIndex];
+            const enabledActions = aktionen.filter(action => settings[action.name]);
+            const aktuelleAktion = enabledActions[aktuelleAktionIndex];
         
             console.log('Gedrückte Taste:', aktuelleTaste);
+        
+            if (!aktuelleAktion) return; // No enabled actions
         
             if (aktuelleTaste === aktuelleAktion.sequence[aktuelleTastenIndex]) {
                 // Wenn die richtige Taste gedrückt wird
@@ -214,7 +217,7 @@
         
                 if (aktuelleTastenIndex === aktuelleAktion.sequence.length) {
                     // Wenn alle Tasten erfolgreich gedrückt wurden
-                    aktuelleAktionIndex = (aktuelleAktionIndex + 1) % aktionen.length;
+                    aktuelleAktionIndex = (aktuelleAktionIndex + 1) % enabledActions.length;
                     aktuelleTastenIndex = 0; // Reset Tastenindex für die nächste Aktion
                     showAction();
                 }
