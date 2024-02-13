@@ -220,6 +220,9 @@
             arrows.forEach(arrow => {
                 arrow.classList.remove('green');
                 arrow.classList.add('red');
+                setTimeout(() => {
+                    arrow.classList.remove('red');
+                }, 500);
             });
         }
 
@@ -230,7 +233,6 @@
                     arrow.classList.add('green');
                 } else {
                     arrow.classList.remove('green');
-                    arrow.classList.remove('red');
                 }
             });
         }
