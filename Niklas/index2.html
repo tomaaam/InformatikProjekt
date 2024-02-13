@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helldivers Tastenkombinationen Üben</title>
+    <style>
+        /* Original styles */
+        body {
+            background-image: url('background2.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: white; /* Adjust text color for better visibility */
+            margin: 0; /* Remove default margin */
+        }
+        #actionImage {
+            width: 200px;
+            height: 200px;
+        }
+        #arrow-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20vh;
+        }
+        .arrow {
+            font-family: 'ui-sans-serif', sans-serif;
+            font-size: 80px;
+            margin: 0 20px;
+        }
+        .action-name {
+            font-size: 40px;
+            font-weight: bold;
+            margin-top: -140px;
+            text-align: center;
+        }
+        .green { color: green; }
+        .red { color: red; }
+        
+        /* Dark mode */
+        body.dark-mode {
+            background-color: black;
+        }
+
+        /* Toggle button styles */
+        .toggle-menu-button {
+            position: absolute; /* Position the button absolutely */
+            top: calc(50vh + 80px); /* Position below the two lines of text */
+            left: 20px; /* Left position */
+            z-index: 999;
+        }
+
+        /* Scrollable menu styles */
+        .scrollable-menu {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-height: 80%;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        .scrollable-menu h2 {
+            color: white;
+        }
+        .action-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        /* Checkbox styles */
+        input[type="checkbox"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #007bff; /* Blue color */
+            outline: none;
+            cursor: pointer;
+            position: relative;
+        }
+        input[type="checkbox"]:checked::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background-color: #007bff; /* Blue color */
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Train Support calls for Helldivers 2</h1>
+    <p>Press the keys in the order shown</p>
+    <button class="toggle-menu-button" onclick="toggleMenu()">Toggle Menu</button>
+    <div id="scrollableMenu" class="scrollable-menu">
+        <h2>Actions</h2>
+        <!-- Action toggles will be added here -->
+    </div>
+    <div id="arrow-container"></div>
+
+    <script>
+        const aktionen = [
+            { name: "SOS Beacon", sequence: "wsdw" },
+            { name: "Resupply", sequence: "sswd" },
+            { name: "Orbital 380mm HE Barrage", sequence: "dswwass" },
+            { name: "Orbital 120mm HE Barrage", sequence: "ddsads" },
+            { name: "Eagle Napalm Airstrike", sequence: "wdsw" },
+            { name: "Orbital Precision Strike", sequence: "ddw" },
+            { name: "Hellbomb", sequence: "swaswdsw" },
+            { name: "Eagle Strafing Run", sequence: "wdd" },
+            { name: "Eagle Cluster Bomb", sequence: "wdssd" },
+            { name: "Eagle Airstrike", sequence: "wdsd" },
+            { name: "Eagle 110mm Rocket Pods", sequence: "wdwa" },
+        ];
+        const categories = {
+            "General & Contextual Stratagems": ["Reinforce", "Resupply", "SOS Beacon", "Hellbomb"],
+            "Patriotic Administration Center": ["Machine Gun", "Anti-Material Rifle", "Stalwart", "Expendable Anti-Tank", "Recoilless Rifle", "Flamethrower", "Autocannon", "Railgun", "Spear"],
+            "Orbital Cannons": ["Orbital Precision Strike", "Orbital Gatling Barrage", "Orbital Airburst Strike", "Orbital 120MM HE Barrage", "Orbital 380MM HE Barrage", "Orbital Walking Barrage", "Orbital Laser", "Orbital Railcannon Strike"],
+            "Hangar": ["Eagle Strafing Run", "Eagle Airstrike", "Eagle Cluster Bomb", "Eagle Napalm Airstrike", "Jump Pack", "Eagle Smoke Strike", "Eagle 110MM Rocket Pods", "Eagle 500KG Bomb"],
+            "Bridge": ["Orbital Precision Strike", "Orbital Gas Strike", "Orbital EMS Strike", "Orbital Smoke Strike", "HMG Placement", "Shield Generator Relay", "Tesla Tower", "Sentry"],
+            "Engineering Bay": ["Anti-Personnel Minefield", "Supply Pack", "Grenade Launcher", "Laser Cannon", "Incendiary Mines", "Guard Dog Rover", "Ballistic Shield Backpack", "Arc Thrower", "Shield Generator Pack"],
+            "Robotics Workshop": ["Machine Gun Sentry", "Gatling Sentry", "Mortar Sentry", "Guard Dog", "Autocannon Sentry", "Rocket Sentry", "EMS Mortar Sentry"]
+        };
+          
+        // Randomize the order of actions for testing
+        aktionen.sort(() => Math.random() - 0.5);
+
+        let aktuelleAktionIndex = 0;
+        let aktuelleTastenIndex = 0;
+
+        const arrowContainer = document.getElementById('arrow-container');
+        const scrollableMenu = document.getElementById('scrollableMenu');
+
+        let settings = JSON.parse(localStorage.getItem('helldivers_settings')) || {};
+
+        function showAction() {
+            let enabledActionsCount = aktionen.filter(action => settings[action.name] !== false).length;
+        
+            if (enabledActionsCount < 3) {
+                // If less than three actions are enabled, display an error message
+                alert("Please select at least three actions to play.");
+                return;
+            }
+        
+            let aktuelleAktion = getNextEnabledAction();
+        
+            // If there are no enabled actions, do nothing
+            if (!aktuelleAktion) return;
+        
+            arrowContainer.innerHTML = ''; // Clear previous content
+            const arrowContainerDiv = document.createElement('div');
+            arrowContainerDiv.id = 'arrow-container';
+            arrowContainerDiv.classList.add('arrow-container');
+        
+            const actionImage = document.createElement('img');
+            actionImage.src = aktuelleAktion.name.toLowerCase().replace(/\s+/g, '-') + '.png';
+            actionImage.alt = aktuelleAktion.name;
+            actionImage.id = 'actionImage';
+            arrowContainerDiv.appendChild(actionImage);
+        
+            const actionNameParagraph = document.createElement('p');
+            actionNameParagraph.textContent = aktuelleAktion.name;
+            actionNameParagraph.classList.add('action-name'); // Add action-name class for styling
+            arrowContainerDiv.appendChild(actionNameParagraph);
+        
+            arrowContainer.appendChild(arrowContainerDiv);
+        
+            setArrowDirection(aktuelleAktion.sequence);
+        }
+
+        function getNextEnabledAction() {
+            let nextIndex = aktuelleAktionIndex;
+            let enabledActions = aktionen.filter(action => settings[action.name] !== false);
+            if (enabledActions.length === 0) return null;
+            do {
+                nextIndex = (nextIndex + 1) % aktionen.length;
+            } while (settings[aktionen[nextIndex].name] === false);
+            aktuelleAktionIndex = nextIndex;
+            return aktionen[nextIndex];
+        }
+
+        function setArrowDirection(sequence) {
+            const arrowUnicodeMap = {
+                'w': '🠉', // ▲ (Thicker arrow)
+                's': '🠋', // ▼ (Thicker arrow)
+                'a': '🠈', // ◄ (Thicker arrow)
+                'd': '🠊'  // ► (Thicker arrow)
+            };
+
+            sequence.split('').forEach(taste => {
+                const arrowDiv = document.createElement('div');
+                arrowDiv.classList.add('arrow');
+                arrowDiv.innerHTML = arrowUnicodeMap[taste];
+                arrowContainer.appendChild(arrowDiv);
+            });
+        }
+
+        function checkKeyPress(event) {
+            const aktuelleTaste = event.key.toLowerCase();
+            const aktuelleAktion = aktionen[aktuelleAktionIndex];
+        
+            console.log('Gedrückte Taste:', aktuelleTaste);
+        
+            if (aktuelleTaste === aktuelleAktion.sequence[aktuelleTastenIndex]) {
+                // Wenn die richtige Taste gedrückt wird
+                aktuelleTastenIndex++; // Zum nächsten Tastenindex gehen
+                console.log('Richtige Taste gedrückt');
+        
+                const arrows = arrowContainer.querySelectorAll('.arrow');
+                if (aktuelleTastenIndex <= aktuelleAktion.sequence.length) {
+                    arrows[aktuelleTastenIndex - 1].classList.add('green'); // Make the pressed key arrow green
+                }
+        
+                if (aktuelleTastenIndex === aktuelleAktion.sequence.length) {
+                    // Wenn alle Tasten erfolgreich gedrückt wurden
+                    aktuelleAktionIndex = (aktuelleAktionIndex + 1) % aktionen.length;
+                    aktuelleTastenIndex = 0; // Reset Tastenindex für die nächste Aktion
+                    showAction();
+                }
+            } else {
+                // Wenn eine falsche Taste gedrückt wird
+                makeArrowsRed(aktuelleAktion.sequence);
+                console.log('Falsche Taste gedrückt');
+                aktuelleTastenIndex = 0; // Reset Tastenindex
+            }
+        
+            updateArrowState();
+        }
+
+        function makeArrowsRed(sequence) {
+            const arrows = arrowContainer.querySelectorAll('.arrow');
+            arrows.forEach(arrow => {
+                arrow.classList.remove('green');
+                arrow.classList.add('red');
+                setTimeout(() => {
+                    arrow.classList.remove('red');
+                }, 500);
+            });
+        }
+
+        function updateArrowState() {
+            const arrows = arrowContainer.querySelectorAll('.arrow');
+            arrows.forEach((arrow, index) => {
+                if (index < aktuelleTastenIndex) {
+                    arrow.classList.add('green');
+                } else {
+                    arrow.classList.remove('green');
+                }
+            });
+        }
+
+        document.addEventListener('keydown', checkKeyPress);
+        showAction();
+
+        function toggleMenu() {
+            scrollableMenu.style.display = scrollableMenu.style.display === 'none' ? 'block' : 'none';
+        }
+
+    // Function to create action toggles for each category
+    function createActionToggles() {
+        for (const [category, stratagems] of Object.entries(categories)) {
+            const categoryHeading = document.createElement('h2');
+            categoryHeading.textContent = category;
+            scrollableMenu.appendChild(categoryHeading);
+    
+            stratagems.forEach(stratagem => {
+                const toggle = document.createElement('input');
+                toggle.type = 'checkbox';
+                toggle.id = stratagem.toLowerCase().replace(/\s+/g, '-');
+                toggle.checked = settings[stratagem] === undefined ? true : settings[stratagem];
+                toggle.addEventListener('change', () => {
+                    settings[stratagem] = toggle.checked;
+                    localStorage.setItem('helldivers_settings', JSON.stringify(settings));
+                    showAction();
+                });
+    
+                const label = document.createElement('label');
+                label.htmlFor = toggle.id;
+                label.textContent = stratagem;
+    
+                const actionToggle = document.createElement('div');
+                actionToggle.classList.add('action-toggle');
+                actionToggle.appendChild(toggle);
+                actionToggle.appendChild(label);
+    
+                scrollableMenu.appendChild(actionToggle);
+            });
+        }
+    
+        // Toggle to enable/disable all actions
+        const toggleAllDiv = document.createElement('div');
+        toggleAllDiv.classList.add('action-toggle');
+        const toggleAll = document.createElement('input');
+        toggleAll.type = 'checkbox';
+        toggleAll.id = 'toggle-all';
+        toggleAll.checked = true; // By default, all actions are enabled
+        toggleAll.addEventListener('change', () => {
+            const toggles = document.querySelectorAll('.action-toggle input[type="checkbox"]');
+            toggles.forEach(toggle => {
+                toggle.checked = toggleAll.checked;
+                const stratagem = toggle.id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()); // Convert from kebab-case to Camel Case
+                settings[stratagem] = toggle.checked;
+            });
+            localStorage.setItem('helldivers_settings', JSON.stringify(settings));
+            showAction();
+        });
+        const toggleAllLabel = document.createElement('label');
+        toggleAllLabel.htmlFor = 'toggle-all';
+        toggleAllLabel.textContent = 'Toggle All Actions';
+        toggleAllDiv.appendChild(toggleAll);
+        toggleAllDiv.appendChild(toggleAllLabel);
+        scrollableMenu.appendChild(toggleAllDiv);
+    }
+    
+    createActionToggles();
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+</html>
