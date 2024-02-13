@@ -192,14 +192,19 @@
         function checkKeyPress(event) {
             const aktuelleTaste = event.key.toLowerCase();
             const aktuelleAktion = aktionen[aktuelleAktionIndex];
-
+        
             console.log('Gedrückte Taste:', aktuelleTaste);
-
+        
             if (aktuelleTaste === aktuelleAktion.sequence[aktuelleTastenIndex]) {
                 // Wenn die richtige Taste gedrückt wird
                 aktuelleTastenIndex++; // Zum nächsten Tastenindex gehen
                 console.log('Richtige Taste gedrückt');
-
+        
+                const arrows = arrowContainer.querySelectorAll('.arrow');
+                if (aktuelleTastenIndex <= aktuelleAktion.sequence.length) {
+                    arrows[aktuelleTastenIndex - 1].classList.add('green'); // Make the pressed key arrow green
+                }
+        
                 if (aktuelleTastenIndex === aktuelleAktion.sequence.length) {
                     // Wenn alle Tasten erfolgreich gedrückt wurden
                     aktuelleAktionIndex = (aktuelleAktionIndex + 1) % aktionen.length;
@@ -212,7 +217,7 @@
                 console.log('Falsche Taste gedrückt');
                 aktuelleTastenIndex = 0; // Reset Tastenindex
             }
-
+        
             updateArrowState();
         }
 
