@@ -123,7 +123,16 @@
             { name: "Eagle Airstrike", sequence: "wdsd" },
             { name: "Eagle 110mm Rocket Pods", sequence: "wdwa" },
         ];
-        
+        const categories = {
+            "General & Contextual Stratagems": ["Reinforce", "Resupply", "SOS Beacon", "Hellbomb"],
+            "Patriotic Administration Center": ["Machine Gun", "Anti-Material Rifle", "Stalwart", "Expendable Anti-Tank", "Recoilless Rifle", "Flamethrower", "Autocannon", "Railgun", "Spear"],
+            "Orbital Cannons": ["Orbital Precision Strike", "Orbital Gatling Barrage", "Orbital Airburst Strike", "Orbital 120MM HE Barrage", "Orbital 380MM HE Barrage", "Orbital Walking Barrage", "Orbital Laser", "Orbital Railcannon Strike"],
+            "Hangar": ["Eagle Strafing Run", "Eagle Airstrike", "Eagle Cluster Bomb", "Eagle Napalm Airstrike", "Jump Pack", "Eagle Smoke Strike", "Eagle 110MM Rocket Pods", "Eagle 500KG Bomb"],
+            "Bridge": ["Orbital Precision Strike", "Orbital Gas Strike", "Orbital EMS Strike", "Orbital Smoke Strike", "HMG Placement", "Shield Generator Relay", "Tesla Tower", "Sentry"],
+            "Engineering Bay": ["Anti-Personnel Minefield", "Supply Pack", "Grenade Launcher", "Laser Cannon", "Incendiary Mines", "Guard Dog Rover", "Ballistic Shield Backpack", "Arc Thrower", "Shield Generator Pack"],
+            "Robotics Workshop": ["Machine Gun Sentry", "Gatling Sentry", "Mortar Sentry", "Guard Dog", "Autocannon Sentry", "Rocket Sentry", "EMS Mortar Sentry"]
+        };
+          
         // Randomize the order of actions for testing
         aktionen.sort(() => Math.random() - 0.5);
 
@@ -258,36 +267,63 @@
             scrollableMenu.style.display = scrollableMenu.style.display === 'none' ? 'block' : 'none';
         }
 
-        // Function to create action toggles
-        function createActionToggles() {
-            aktionen.forEach(action => {
+    // Function to create action toggles for each category
+    function createActionToggles() {
+        for (const [category, stratagems] of Object.entries(categories)) {
+            const categoryHeading = document.createElement('h2');
+            categoryHeading.textContent = category;
+            scrollableMenu.appendChild(categoryHeading);
+    
+            stratagems.forEach(stratagem => {
                 const toggle = document.createElement('input');
                 toggle.type = 'checkbox';
-                toggle.id = action.name.replace(/\s+/g, '-');
-                toggle.checked = settings[action.name] === undefined ? true : settings[action.name];
+                toggle.id = stratagem.toLowerCase().replace(/\s+/g, '-');
+                toggle.checked = settings[stratagem] === undefined ? true : settings[stratagem];
                 toggle.addEventListener('change', () => {
-                    settings[action.name] = toggle.checked;
+                    settings[stratagem] = toggle.checked;
                     localStorage.setItem('helldivers_settings', JSON.stringify(settings));
                     showAction();
                 });
-
+    
                 const label = document.createElement('label');
                 label.htmlFor = toggle.id;
-                label.textContent = action.name;
-
+                label.textContent = stratagem;
+    
                 const actionToggle = document.createElement('div');
                 actionToggle.classList.add('action-toggle');
                 actionToggle.appendChild(toggle);
                 actionToggle.appendChild(label);
-
+    
                 scrollableMenu.appendChild(actionToggle);
             });
         }
-
-        // Sort actions alphabetically for selection menu
-        aktionen.sort((a, b) => a.name.localeCompare(b.name));
-
-        createActionToggles();
+    
+        // Toggle to enable/disable all actions
+        const toggleAllDiv = document.createElement('div');
+        toggleAllDiv.classList.add('action-toggle');
+        const toggleAll = document.createElement('input');
+        toggleAll.type = 'checkbox';
+        toggleAll.id = 'toggle-all';
+        toggleAll.checked = true; // By default, all actions are enabled
+        toggleAll.addEventListener('change', () => {
+            const toggles = document.querySelectorAll('.action-toggle input[type="checkbox"]');
+            toggles.forEach(toggle => {
+                toggle.checked = toggleAll.checked;
+                const stratagem = toggle.id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()); // Convert from kebab-case to Camel Case
+                settings[stratagem] = toggle.checked;
+            });
+            localStorage.setItem('helldivers_settings', JSON.stringify(settings));
+            showAction();
+        });
+        const toggleAllLabel = document.createElement('label');
+        toggleAllLabel.htmlFor = 'toggle-all';
+        toggleAllLabel.textContent = 'Toggle All Actions';
+        toggleAllDiv.appendChild(toggleAll);
+        toggleAllDiv.appendChild(toggleAllLabel);
+        scrollableMenu.appendChild(toggleAllDiv);
+    }
+    
+    createActionToggles();
 
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
