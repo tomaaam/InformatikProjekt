@@ -46,26 +46,26 @@
 
     <script>
         const aktionen = [
-            { name: "Machine Gun", sequence: ["s", "a", "s", "w", "d"] },
-            { name: "Anti-Material Rifle", sequence: ["s", "a", "s", "d", "w", "s"] },
-            { name: "Expendable Anti-Tank", sequence: ["s", "s", "a", "s", "w", "d"] },
-            { name: "Autocannon", sequence: ["s", "d", "a", "s", "s", "w", "w", "d"] },
-            { name: "Railgun", sequence: ["s", "d", "a", "s", "s", "w", "a", "s", "d"] },
-            { name: "Orbital Gatling Barrage", sequence: ["d", "s", "d", "a", "s", "w", "w"] },
-            { name: "Orbital 120MM HE Barrage", sequence: ["d", "s", "s", "a", "s", "d", "s", "s"] },
-            { name: "Orbital 380MM HE Barrage", sequence: ["d", "s", "s", "w", "w", "a", "s", "s", "s"] },
-            { name: "Eagle Strafing Run", sequence: ["w", "d", "d"] },
-            { name: "Eagle Cluster Bomb", sequence: ["w", "d", "s", "s", "d", "s"] },
-            { name: "Eagle Napalm Airstrike", sequence: ["w", "d", "s", "w"] },
-            { name: "Jump Pack", sequence: ["s", "w", "w", "s", "w"] },
-            { name: "Orbital Precision Strike", sequence: ["d", "d", "w"] },
-            { name: "Anti-Personnel Minefield", sequence: ["s", "a", "s", "w", "d"] },
-            { name: "Grenade Launcher", sequence: ["s", "a", "s", "w", "a", "s", "s"] },
-            { name: "Guard Dog Rover", sequence: ["s", "a", "s", "w", "a", "s", "s"] },
-            { name: "Shield Generator Pack", sequence: ["s", "w", "a", "s", "w", "d", "d"] },
-            { name: "Machine Gun Sentry", sequence: ["s", "w", "d", "s", "d", "s", "w"] },
-            { name: "Gatling Sentry", sequence: ["s", "w", "d", "a", "s"] },
-            { name: "Guard Dog", sequence: ["s", "w", "a", "s", "w", "d", "s"] },
+            { name: "Machine Gun", sequence: "saswd" },
+            { name: "Anti-Material Rifle", sequence: "sasdw" },
+            { name: "Expendable Anti-Tank", sequence: "ssaaswd" },
+            { name: "Autocannon", sequence: "sdaswwd" },
+            { name: "Railgun", sequence: "sdaswasd" },
+            { name: "Orbital Gatling Barrage", sequence: "dsdaww" },
+            { name: "Orbital 120MM HE Barrage", sequence: "dssasds" },
+            { name: "Orbital 380MM HE Barrage", sequence: "dsswwasss" },
+            { name: "Eagle Strafing Run", sequence: "wdd" },
+            { name: "Eagle Cluster Bomb", sequence: "wdsds" },
+            { name: "Eagle Napalm Airstrike", sequence: "wdsww" },
+            { name: "Jump Pack", sequence: "swwsw" },
+            { name: "Orbital Precision Strike", sequence: "ddw" },
+            { name: "Anti-Personnel Minefield", sequence: "saswd" },
+            { name: "Grenade Launcher", sequence: "saswaas" },
+            { name: "Guard Dog Rover", sequence: "saswaass" },
+            { name: "Shield Generator Pack", sequence: "swaswdd" },
+            { name: "Machine Gun Sentry", sequence: "swdsdsw" },
+            { name: "Gatling Sentry", sequence: "swdas" },
+            { name: "Guard Dog", sequence: "swaswds" },
         ];
         
         // Randomize the order of actions
@@ -109,7 +109,7 @@
                 'd': '🠊'  // ► (Thicker arrow)
             };
 
-            sequence.forEach(taste => {
+            sequence.split('').forEach(taste => {
                 const arrowDiv = document.createElement('div');
                 arrowDiv.classList.add('arrow');
                 arrowDiv.innerHTML = arrowUnicodeMap[taste];
