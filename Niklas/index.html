@@ -41,14 +41,49 @@
         body.dark-mode {
             background-color: black;
         }
+
+        /* Toggle button styles */
+        .toggle-menu-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        /* Scrollable menu styles */
+        .scrollable-menu {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-height: 80%;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        .scrollable-menu h2 {
+            color: white;
+        }
+        .action-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <h1>Train Support calls for Helldivers 2</h1>
     <p>Press the keys in the order shown</p>
-    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
-    <div id="arrow-container">
+    <button class="toggle-menu-button" onclick="toggleMenu()">Toggle Menu</button>
+    <div id="scrollableMenu" class="scrollable-menu">
+        <h2>Actions</h2>
+        <!-- Action toggles will be added here -->
     </div>
+    <div id="arrow-container"></div>
 
     <script>
         const aktionen = [
@@ -72,8 +107,9 @@
         let aktuelleTastenIndex = 0;
 
         const arrowContainer = document.getElementById('arrow-container');
+        const scrollableMenu = document.getElementById('scrollableMenu');
 
-        let mistakeBlinkTimeout;
+        let settings = JSON.parse(localStorage.getItem('helldivers_settings')) || {};
 
         function showAction() {
             const aktuelleAktion = aktionen[aktuelleAktionIndex];
@@ -135,7 +171,7 @@
                 // Wenn eine falsche Taste gedrückt wird
                 aktuelleTastenIndex = 0; // Reset Tastenindex
                 makeArrowsRed(aktuelleAktion.sequence);
-                mistakeBlinkTimeout = setTimeout(() => { showAction(); }, 1000); // Show the correct action after 1 second
+                setTimeout(() => { showAction(); }, 1000); // Show the correct action after 1 second
                 console.log('Falsche Taste gedrückt');
             }
 
@@ -167,6 +203,37 @@
 
         document.addEventListener('keydown', checkKeyPress);
         showAction();
+
+        function toggleMenu() {
+            scrollableMenu.style.display = scrollableMenu.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Function to create action toggles
+        function createActionToggles() {
+            aktionen.forEach(action => {
+                const toggle = document.createElement('input');
+                toggle.type = 'checkbox';
+                toggle.id = action.name.replace(/\s+/g, '-');
+                toggle.checked = settings[action.name] === undefined ? true : settings[action.name];
+                toggle.addEventListener('change', () => {
+                    settings[action.name] = toggle.checked;
+                    localStorage.setItem('helldivers_settings', JSON.stringify(settings));
+                });
+
+                const label = document.createElement('label');
+                label.htmlFor = toggle.id;
+                label.textContent = action.name;
+
+                const actionToggle = document.createElement('div');
+                actionToggle.classList.add('action-toggle');
+                actionToggle.appendChild(toggle);
+                actionToggle.appendChild(label);
+
+                scrollableMenu.appendChild(actionToggle);
+            });
+        }
+
+        createActionToggles();
 
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
