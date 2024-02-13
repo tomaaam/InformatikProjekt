@@ -208,9 +208,7 @@
                 }
             } else {
                 // Wenn eine falsche Taste gedrückt wird
-                aktuelleTastenIndex = 0; // Reset Tastenindex
                 makeArrowsRed(aktuelleAktion.sequence);
-                setTimeout(() => { showAction(); }, 1000); // Show the correct action after 1 second
                 console.log('Falsche Taste gedrückt');
             }
 
@@ -219,12 +217,9 @@
 
         function makeArrowsRed(sequence) {
             const arrows = arrowContainer.querySelectorAll('.arrow');
-            arrows.forEach((arrow, index) => {
-                if (index < aktuelleTastenIndex) {
-                    if (sequence[index] !== aktionen[aktuelleAktionIndex].sequence[index]) {
-                        arrow.classList.add('red');
-                    }
-                }
+            arrows.forEach(arrow => {
+                arrow.classList.remove('green');
+                arrow.classList.add('red');
             });
         }
 
