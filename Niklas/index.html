@@ -112,7 +112,11 @@
         let settings = JSON.parse(localStorage.getItem('helldivers_settings')) || {};
 
         function showAction() {
-            const aktuelleAktion = aktionen[aktuelleAktionIndex];
+            let aktuelleAktion = getNextEnabledAction();
+
+            // If there are no enabled actions, do nothing
+            if (!aktuelleAktion) return;
+
             arrowContainer.innerHTML = ''; // Clear previous content
             const arrowContainerDiv = document.createElement('div');
             arrowContainerDiv.id = 'arrow-container';
@@ -132,6 +136,17 @@
             arrowContainer.appendChild(arrowContainerDiv);
 
             setArrowDirection(aktuelleAktion.sequence);
+        }
+
+        function getNextEnabledAction() {
+            let nextIndex = aktuelleAktionIndex;
+            let enabledActions = aktionen.filter(action => settings[action.name] !== false);
+            if (enabledActions.length === 0) return null;
+            do {
+                nextIndex = (nextIndex + 1) % aktionen.length;
+            } while (settings[aktionen[nextIndex].name] === false);
+            aktuelleAktionIndex = nextIndex;
+            return aktionen[nextIndex];
         }
 
         function setArrowDirection(sequence) {
@@ -218,6 +233,7 @@
                 toggle.addEventListener('change', () => {
                     settings[action.name] = toggle.checked;
                     localStorage.setItem('helldivers_settings', JSON.stringify(settings));
+                    showAction();
                 });
 
                 const label = document.createElement('label');
