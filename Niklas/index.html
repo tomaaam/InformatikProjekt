@@ -217,8 +217,13 @@
         
                 if (aktuelleTastenIndex === aktuelleAktion.sequence.length) {
                     // Wenn alle Tasten erfolgreich gedrückt wurden
-                    aktuelleAktionIndex = (aktuelleAktionIndex + 1) % enabledActions.length;
+                    aktuelleAktionIndex++;
                     aktuelleTastenIndex = 0; // Reset Tastenindex für die nächste Aktion
+        
+                    if (aktuelleAktionIndex >= enabledActions.length) {
+                        aktuelleAktionIndex = 0; // Restart from the beginning if reached the end
+                    }
+        
                     showAction();
                 }
             } else {
