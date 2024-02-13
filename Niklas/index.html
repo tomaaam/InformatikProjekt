@@ -144,8 +144,7 @@
 
         let settings = JSON.parse(localStorage.getItem('helldivers_settings')) || {};
 
-        function showAction() {
-            const enabledActions = aktionen.filter(action => settings[action.name]);
+        function showAction(enabledActions) {
             const aktuelleAktion = enabledActions[aktuelleAktionIndex];
         
             arrowContainer.innerHTML = ''; // Clear previous content
@@ -217,14 +216,8 @@
         
                 if (aktuelleTastenIndex === aktuelleAktion.sequence.length) {
                     // Wenn alle Tasten erfolgreich gedrückt wurden
-                    aktuelleAktionIndex++;
                     aktuelleTastenIndex = 0; // Reset Tastenindex für die nächste Aktion
-        
-                    if (aktuelleAktionIndex >= enabledActions.length) {
-                        aktuelleAktionIndex = 0; // Restart from the beginning if reached the end
-                    }
-        
-                    showAction();
+                    showNextEnabledAction(enabledActions);
                 }
             } else {
                 // Wenn eine falsche Taste gedrückt wird
@@ -234,6 +227,14 @@
             }
         
             updateArrowState();
+        }
+        
+        function showNextEnabledAction(enabledActions) {
+            aktuelleAktionIndex++;
+            if (aktuelleAktionIndex >= enabledActions.length) {
+                aktuelleAktionIndex = 0; // Restart from the beginning if reached the end
+            }
+            showAction(enabledActions);
         }
 
         function makeArrowsRed(sequence) {
