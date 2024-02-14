@@ -154,6 +154,10 @@
 
         function showAction() {
             const enabledActions = aktionen.filter(action => settings[action.name]);
+            console.log('Enabled Actions:', enabledActions);
+            const aktuelleAktion = enabledActions[aktuelleAktionIndex];
+            console.log('Current Action:', aktuelleAktion);
+            const enabledActions = aktionen.filter(action => settings[action.name]);
             const aktuelleAktion = enabledActions[aktuelleAktionIndex];
         
             arrowContainer.innerHTML = ''; // Clear previous content
