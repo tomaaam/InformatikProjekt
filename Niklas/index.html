@@ -150,7 +150,23 @@
         const arrowContainer = document.getElementById('arrow-container');
         const scrollableMenu = document.getElementById('scrollableMenu');
 
-        let settings = JSON.parse(localStorage.getItem('helldivers_settings')) || {};
+        // Define the subset of actions to be enabled by default
+        const defaultEnabledActions = [
+            "Reinforce",
+            "Resupply",
+            "SOS Beacon",
+            "Hellbomb"
+        ];
+        
+        // Initialize settings with default enabled actions
+        const defaultSettings = {};
+        defaultEnabledActions.forEach(action => {
+            defaultSettings[action] = true;
+        });
+        
+        // Load settings from localStorage or use default settings if not available
+        let settings = JSON.parse(localStorage.getItem('helldivers_settings')) || defaultSettings;
+
 
         function showAction() {
             const enabledActions = aktionen.filter(action => settings[action.name]);
