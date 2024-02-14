@@ -153,12 +153,10 @@
         let settings = JSON.parse(localStorage.getItem('helldivers_settings')) || {};
 
         function showAction() {
-            enabledActions = aktionen.filter(action => settings[action.name]);
+            const enabledActions = aktionen.filter(action => settings[action.name]);
             console.log('Enabled Actions:', enabledActions);
             const aktuelleAktion = enabledActions[aktuelleAktionIndex];
             console.log('Current Action:', aktuelleAktion);
-            const enabledActions = aktionen.filter(action => settings[action.name]);
-            const aktuelleAktion = enabledActions[aktuelleAktionIndex];
         
             arrowContainer.innerHTML = ''; // Clear previous content
             const arrowContainerDiv = document.createElement('div');
