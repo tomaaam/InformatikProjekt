@@ -84,11 +84,11 @@ var currentSequenceIndex = 0;
 var currentRefreshIndex = 0;
 var currentArrowSequenceTags = undefined;
 var refreshArrowSequenceTags;
-const TOTAL_TIME = 10000;
-const COUNTDOWN_STEP = 10000;
+const TOTAL_TIME = 1000000000;
+const COUNTDOWN_STEP = 0;
 const NEW_STRATEGEM_TIMEOUT = 200;
-const CORRECT_TIME_BONUS = 500;
-const FAILURE_SHAKE_TIME = 200;
+const CORRECT_TIME_BONUS = 0;
+const FAILURE_SHAKE_TIME = 0;
 var timeRemaining = TOTAL_TIME;
 var completedStrategemsList = [];
 const CURRENT_STRATAGEM_LIST_LENGTH = 4; //dependent on the html, don't change without modifying html too
