@@ -367,7 +367,7 @@ function copyShare(spamless){
     // Gather text and write to clipboard
     let output = `## My Stratagem Hero Online Score: ${completedStrategemsList.length}\n`
     output += stratagemListToString(false, spamless);
-    output += "Do your part! Play Stratagem Hero Online: https://combustibletoast.github.io/"
+    output += "Do your part! Play Stratagem Hero Online: http://niklas-server.de:2024/helldivers/index.html"
     navigator.clipboard.writeText(output);
 
     //Change button's text
