@@ -85,7 +85,7 @@ var currentRefreshIndex = 0;
 var currentArrowSequenceTags = undefined;
 var refreshArrowSequenceTags;
 const TOTAL_TIME = 10000;
-const COUNTDOWN_STEP = 10;
+const COUNTDOWN_STEP = 10000;
 const NEW_STRATEGEM_TIMEOUT = 200;
 const CORRECT_TIME_BONUS = 500;
 const FAILURE_SHAKE_TIME = 200;
