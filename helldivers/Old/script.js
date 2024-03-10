@@ -70,7 +70,7 @@ var currentSequenceIndex = 0;
 var currentRefreshIndex = 0;
 var currentArrowSequenceTags = undefined;
 var refreshArrowSequenceTags;
-const TOTAL_TIME = 10000;
+const TOTAL_TIME = 1000000;
 const COUNTDOWN_STEP = 10;
 const NEW_STRATEGEM_TIMEOUT = 200;
 const CORRECT_TIME_BONUS = 1000;
