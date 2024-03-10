@@ -73,8 +73,8 @@ var refreshArrowSequenceTags;
 const TOTAL_TIME = 10000;
 const COUNTDOWN_STEP = 10;
 const NEW_STRATEGEM_TIMEOUT = 200;
-const CORRECT_TIME_BONUS = 500;
-const FAILURE_SHAKE_TIME = 200;
+const CORRECT_TIME_BONUS = 1000;
+const FAILURE_SHAKE_TIME = 0;
 var timeRemaining = TOTAL_TIME;
 var completedStrategemsList = [];
 const CURRENT_STRATAGEM_LIST_LENGTH = 4; //dependent on the html, don't change without modifying html too
